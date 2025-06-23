@@ -1,0 +1,50 @@
+{
+  "name": "purrgrammer",
+  "displayName": "purrgrammer",
+  "description": "A little coding companion.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "purrgrammerView",
+          "title": "Purrgrammer",
+          "icon": "media/cat-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "purrgrammerView": [
+        {
+          "id": "purrgrammerPanel",
+          "name": "Kitty Companion"
+        }
+      ]
+    },
+    "commands": [{
+      "command": "purrgrammer.helloWorld",
+      "title": "Hello World"
+    }]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.101.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "eslint": "^9.25.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
