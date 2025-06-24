@@ -9,7 +9,6 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
     "viewsContainers": {
@@ -18,6 +17,7 @@
           "id": "purrgrammerView",
           "title": "Purrgrammer",
           "icon": "media/cat-icon.svg"
+
         }
       ]
     },
@@ -25,7 +25,8 @@
       "purrgrammerView": [
         {
           "id": "purrgrammerPanel",
-          "name": "Kitty Companion"
+          "name": "Kitty Companion",
+          "icon": "media/cat-icon.svg"
         }
       ]
     },
