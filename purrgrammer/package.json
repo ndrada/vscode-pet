@@ -25,7 +25,9 @@
       "purrgrammerView": [
         {
           "id": "purrgrammerPanel",
-          "name": "Kitty Companion"
+          "name": "Kitty Companion",
+          "type": "webview"
+
         }
       ]
     },
