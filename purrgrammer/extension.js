@@ -26,9 +26,9 @@ class KittyViewProvider{
 
   //actual html panel that will be displayed
   getHtml(webview){
-    //special uri to safely access gifs
-    const catGif = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'awesome-cat.gif')
+    //special uri to safely access cat sprites
+    const spriteUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
     );
 
     return `
@@ -38,19 +38,134 @@ class KittyViewProvider{
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-          /*centering everything with a nice dark background*/
           body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; 
-            background: #191919;
+            height: 100vh;
           }
-          img { width: 120px; } /*image size*/
+          canvas {
+            width: 128px;
+            height: 128px;
+            image-rendering:pixelated;
+          } /*image size*/
         </style>
       </head>
       <body>
-        <img src="${catGif}" alt="kitty gif" />
+        <canvas id="pet-canvas" width="32" height="32"></canvas>
+        <script>
+            const canvas = document.getElementById('pet-canvas');
+            const ctx = canvas.getContext('2d');
+            const sprite = new Image();
+            sprite.src = '${spriteUri}';
+
+            const SPRITE_WIDTH = 32;
+            const SPRITE_HEIGHT = 32;
+
+            const ANIMATIONS = {
+              idle: [[0,0], [0,1]],
+              walk: [[1,0], [1,1]],
+              layDown:[[2,0], [2,1], [2,2], [2,3]],
+              sleep:[[2,3], [3,3]],
+              getUp:[[3,2], [3,1], [2,0]]
+            }
+            
+            let currentAnimation = 'idle';
+            let animFrame = 0;
+            let frameDelay = 20;
+            frameCount = 0;
+
+            let facingRight = false;
+            let posX = 0;
+            let speed = 1;
+            const CANVAS_WIDTH = 128;
+            const CANVAS_HEIGHT = 128;
+
+            function drawFrame(){
+              const [row, col] = ANIMATIONS[currentAnimation][animFrame];
+              ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+              ctx.save();
+
+              if(facingRight){
+                ctx.translate(SPRITE_WIDTH + posX, 0);
+                ctx.scale(-1, 1); //flip horizontally
+                ctx.drawImage(
+                  sprite, 
+                  col * SPRITE_WIDTH, row * SPRITE_HEIGHT, 
+                  SPRITE_WIDTH, SPRITE_HEIGHT, 
+                  0, 0, 
+                  SPRITE_WIDTH, SPRITE_HEIGHT
+                );
+              } else {
+                ctx.translate(posX, 0);
+                ctx.drawImage(
+                  sprite,
+                  col * SPRITE_WIDTH, row * SPRITE_HEIGHT,
+                  SPRITE_WIDTH, SPRITE_HEIGHT,
+                  0, 0,
+                  SPRITE_WIDTH, SPRITE_HEIGHT
+                );
+              }
+              ctx.restore();
+            }
+
+            function animate(){
+              if(currentAnimation === 'walk'){
+                posX += facingRight ? speed : -speed;
+
+                //left edge check
+                if(!facingRight && posX <= 0){
+                  posX = 0;
+                  playAnimation('layDown');
+                  setTimeout(() => {
+                    facingRight = true;
+                    playAnimation('getUp');
+                    setTimeout(() => {
+                      playAnimation('walk');
+                    }, 1000); //get up
+                  }, 1000); // lay down
+                }
+              } else if (facingRight && posX >= CANVAS_WIDTH - SPRITE_WIDTH){
+                posX = CANVAS_WIDTH - SPRITE_WIDTH;
+                playAnimation('layDown');
+                setTimeout(() => {
+                  facingRight = false;
+                  playAnimation('getUp');
+                  setTimeout(() => {
+                    playAnimation('walk');
+                  }, 1000); //get up
+                }, 1000); // lay down
+              }
+
+              frameCount++;
+              if(frameCount % frameDelay === 0){
+                animFrame = (animFrame + 1) % ANIMATIONS[currentAnimation].length;
+                frameCount = 0;
+              }  
+              drawFrame();
+              requestAnimationFrame(animate);
+            }
+
+            function playAnimation(name){
+              if(ANIMATIONS[name] && currentAnimation !== name){
+                currentAnimation = name;
+                animFrame = 0;
+                let frameCount = 0;
+              }
+            }
+
+            sprite.onload = function(){
+              animate();
+
+              //demo
+              let anims = Object.keys(ANIMATIONS);
+              let idx = 0;
+              setInterval(() => {
+                playAnimation(anims[idx]);
+                idx = (idx + 1) % anims.length;
+              }, 2000);
+            };
+        </script>
       </body>
     </html>
     `;
