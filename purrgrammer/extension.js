@@ -48,20 +48,26 @@ class KittyViewProvider{
           body {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #191919;
+            align-items: flex-end;
+            height: 98vh;
+            width: 90vw;
             margin: 0;
+            border: 1px solid #ccc;
           }
           #container {
-            width: 300px;
-            height: 200px;
+            width: 100vw;
+            min-width: 100px;
+            height: 100%;
+            max-height: 100px;
+            min-height: 100px;
             position: relative;
-            border: 1px solid #333;
             overflow: hidden;
+            border: 1px solid #ccc;
           }
           canvas {
             position: absolute;
+            left: 0;
+            bottom: 0;
             image-rendering: pixelated;
             width: 64px;
             height: 64px;

@@ -17,10 +17,24 @@ function initPet() {
     
     const SPRITE_WIDTH = 32;
     const SPRITE_HEIGHT = 32;
-    const CONTAINER_WIDTH = 300;
-    const CONTAINER_HEIGHT = 200;
     const CAT_DISPLAY_SIZE = 64;
-    
+
+    function getContainerSize(){
+        const container = document.getElementById('container');
+        return {
+            width: container.clientWidth,
+            height: container.clientHeight
+        };
+    }
+
+    let { width : CONTAINER_WIDTH, height: CONTAINER_HEIGHT } = getContainerSize();
+
+    window.addEventListener('resize', () => {
+        const size = getContainerSize();
+        CONTAINER_WIDTH = size.width;
+        CONTAINER_HEIGHT = size.height;
+    });
+
     const ANIMATIONS = {
         idle: [[0,0], [0,1]],
         walk: [[1,0], [1,1]],
@@ -45,7 +59,7 @@ function initPet() {
         ctx.clearRect(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
         
         canvas.style.left = posX + 'px';
-        canvas.style.top = posY + 'px';
+        // canvas.style.top = posY + 'px';
         
         ctx.save();
         
