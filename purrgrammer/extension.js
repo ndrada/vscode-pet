@@ -20,7 +20,8 @@ class KittyViewProvider{
       enableScripts: true, //let html panel run js - for interactivity
       localResourceRoots: [
         vscode.Uri.joinPath(this.extensionUri, 'media'),
-        vscode.Uri.joinPath(this.extensionUri, 'scripts')
+        vscode.Uri.joinPath(this.extensionUri, 'scripts'),
+        vscode.Uri.joinPath(this.extensionUri, 'styles')
       ]
     };
     //store html content for webview panel
@@ -34,12 +35,16 @@ class KittyViewProvider{
       vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
     );
     //special uri to safely access js script
-    const petScriptUri = webview.asWebviewUri(
+    const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'pet.js')
     );
-
-    const timerScriptUri = webview.asWebviewUri(
+    //special uri to safely access timer script
+    const timerUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'timer.js')
+    );
+    //special uri to safely access css
+    const styleUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'styles', 'style.css')
     );
 
     return `
@@ -48,55 +53,39 @@ class KittyViewProvider{
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-          body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            flex-direction: column;
-            height: 98vh;
-            width: 90vw;
-            margin: 0;
-            border: 1px solid #ccc;
-          }
-          #container {
-            width: 100vw;
-            min-width: 100px;
-            height: 100%;
-            max-height: 100px;
-            min-height: 100px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #ccc;
-          }
-          canvas {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            image-rendering: pixelated;
-            width: 64px;
-            height: 64px;
-          }
-        </style>
+        <link rel="stylesheet" href="${styleUri}">
+        <title>Purrgrammer</title>
       </head>
       <body>
-        <h1 id="title" style="text-align:center;margin-top:10px;">🍅 TOMATO CAT - a pomodoro timer</h1>
-        <div id="timer-display" style="font-size:2em;text-align:center;margin-top:5px;">25:00</div>
-        <button id="start-btn" style="display:block;margin:20px auto;">Start</button>
+      <h1>Tomato Cat</h1>
+        <div id="timer-container">
+          <div id="timer-display">25:00</div>
+          <div id="timer-controls">
+            <button id="start-btn">Start</button>
+            <button id="pause-btn">Pause</button>
+            <button id="reset-btn">Reset</button>
+          </div>
+          <div id="timer-status">Ready to focus!</div>
+        </div>
+        
         <div id="container">
           <canvas id="pet-canvas" width="32" height="32"></canvas>
         </div>
+        
         <script>
-          // Set sprite URI before loading the pet script
-          window.spriteUri = '${spriteUri}';
-          console.log('Sprite URI set:', window.spriteUri);
+          window.spriteUri = "${spriteUri}";
         </script>
-        <script src="${petScriptUri}"></script>
-        <script src=${timerScriptUri}></script>
+        <script src="${scriptUri}"></script>
+        <script src="${timerUri}"></script>
       </body>
-    </html>
+      </html>
     `;
   }
 }
 
-exports.activate = activate;
+function deactivate() {}
+
+module.exports = {
+  activate,
+  deactivate
+};

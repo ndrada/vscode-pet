@@ -150,5 +150,24 @@ function initPet() {
     };
 }
 
+window.petController = {
+    startBreak: function() {
+        // cat sleeps during break
+        playAnimation('layDown');
+        setTimeout(() => {
+            playAnimation('sleep');
+        }, 1000);
+    },
+    
+    endBreak: function() {
+        // wake up after break
+        playAnimation('getUp');
+        setTimeout(() => {
+            isWalking = true;
+            playAnimation('walk');
+        }, 1500);
+    }
+};
+
 // start animation
 initPet();
