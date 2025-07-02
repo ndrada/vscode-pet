@@ -34,8 +34,12 @@ class KittyViewProvider{
       vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
     );
     //special uri to safely access js script
-    const scriptUri = webview.asWebviewUri(
+    const petScriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'pet.js')
+    );
+
+    const timerScriptUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'scripts', 'timer.js')
     );
 
     return `
@@ -49,6 +53,7 @@ class KittyViewProvider{
             display: flex;
             justify-content: center;
             align-items: flex-end;
+            flex-direction: column;
             height: 98vh;
             width: 90vw;
             margin: 0;
@@ -75,6 +80,9 @@ class KittyViewProvider{
         </style>
       </head>
       <body>
+        <h1 id="title" style="text-align:center;margin-top:10px;">🍅 TOMATO CAT - a pomodoro timer</h1>
+        <div id="timer-display" style="font-size:2em;text-align:center;margin-top:5px;">25:00</div>
+        <button id="start-btn" style="display:block;margin:20px auto;">Start</button>
         <div id="container">
           <canvas id="pet-canvas" width="32" height="32"></canvas>
         </div>
@@ -83,7 +91,8 @@ class KittyViewProvider{
           window.spriteUri = '${spriteUri}';
           console.log('Sprite URI set:', window.spriteUri);
         </script>
-        <script src="${scriptUri}"></script>
+        <script src="${petScriptUri}"></script>
+        <script src=${timerScriptUri}></script>
       </body>
     </html>
     `;

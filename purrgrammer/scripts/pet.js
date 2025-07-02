@@ -79,6 +79,8 @@ function initPet() {
         ctx.restore();
     }
     
+    let shouldLoop = true;
+
     function animate(){
         if(currentAnimation === 'walk' && isWalking){
             posX += facingRight ? speed : -speed;
@@ -113,7 +115,9 @@ function initPet() {
         
         frameCount++;
         if(frameCount % frameDelay === 0){
-            animFrame = (animFrame + 1) % ANIMATIONS[currentAnimation].length;
+            if(shouldLoop || animFrame < ANIMATIONS[currentAnimation].length - 1) {
+                animFrame = (animFrame + 1) % ANIMATIONS[currentAnimation].length;
+            }
             frameCount = 0;
         }
         
@@ -126,6 +130,8 @@ function initPet() {
             currentAnimation = name;
             animFrame = 0;
             frameCount = 0;
+
+            shouldLoop = ['idle', 'walk', 'sleep'].includes(name);
         }
     }
     
