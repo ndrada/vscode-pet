@@ -169,5 +169,14 @@ window.petController = {
     }
 };
 
+// Wait for UI to be ready before initializing pet
+function waitForUI() {
+    if (window.uiReady) {
+        initPet();
+    } else {
+        document.addEventListener('uiReady', initPet);
+    }
+}
+
 // start animation
-initPet();
+waitForUI();

@@ -114,16 +114,16 @@ class PomodoroTimer {
     }
 }
 
-// Initialize timer when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    window.pomodoroTimer = new PomodoroTimer();
-});
-
-// If DOM is already loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+// At the end of the file, replace the initialization with:
+function initTimer() {
+    if (window.uiReady) {
         window.pomodoroTimer = new PomodoroTimer();
-    });
-} else {
-    window.pomodoroTimer = new PomodoroTimer();
+    } else {
+        document.addEventListener('uiReady', () => {
+            window.pomodoroTimer = new PomodoroTimer();
+        });
+    }
 }
+
+// Initialize timer
+initTimer();

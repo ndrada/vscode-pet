@@ -1,67 +1,183 @@
+* {
+      font-family: "Jersey 10", sans-serif;
+      font-style: normal;
+}
+
 body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-editor-foreground);
+    overflow: hidden;
+}
+
+/* Intro Screen Styles */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--vscode-editor-background);
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+#intro-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#intro-content {
+    text-align: center;
+    transform: scale(0.5);
+    animation: zoomIn 3s ease-out forwards;
+}
+
+#intro-tomato {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#intro-title {
+    font-size: 3em;
+    margin: 0;
+    font-weight: bold;
+    color: var(--vscode-textLink-foreground);
+}
+
+@keyframes zoomIn {
+    0% {
+      transform: scale(0.5);
+      opacity: 0.7;
+    }
+    70% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+}
+
+/* Main App Styles */
+#main-app {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 98vh;
-    width: 90vw;
-    margin: 0;
-    padding: 10px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--vscode-editor-background);
-    color: var(--vscode-editor-foreground);
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease-out;
 }
 
-#timer-container {
-    text-align: center;
+#main-app.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Header Styles */
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
-#timer-display {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 10px;
+#header-tomato {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+#header h2 {
+    margin: 0;
+    font-size: 1.5em;
     color: var(--vscode-textLink-foreground);
 }
 
+/* Timer Styles */
+#timer-container {
+      text-align: center;
+      margin-bottom: 20px;
+}
+
+#timer-display {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--vscode-textLink-foreground);
+}
+
 #timer-controls {
-    margin-bottom: 10px;
+      margin-bottom: 10px;
 }
 
 #timer-controls button {
-    margin: 0 5px;
-    padding: 8px 16px;
-    background-color: var(--vscode-button-background);
-    color: var(--vscode-button-foreground);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+      margin: 0 5px;
+      padding: 8px 16px;
+      background-color: var(--vscode-button-background);
+      color: var(--vscode-button-foreground);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.2s ease;
 }
 
 #timer-controls button:hover {
-    background-color: var(--vscode-button-hoverBackground);
+      background-color: var(--vscode-button-hoverBackground);
+}
+
+#timer-controls button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 #timer-status {
-    font-size: 14px;
-    color: var(--vscode-descriptionForeground);
+      font-size: 14px;
+      color: var(--vscode-descriptionForeground);
 }
 
+/* Pet Container Styles */
 #container {
-    width: 100%;
-    min-width: 100px;
-    height: 200px;
-    position: relative;
-    border: 1px solid var(--vscode-panel-border);
-    border-radius: 4px;
-    overflow: hidden;
+      width: 100%;
+      max-width: 400px;
+      height: 200px;
+      position: relative;
+      border: 1px solid var(--vscode-panel-border);
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: var(--vscode-input-background);
 }
 
 #pet-canvas {
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    image-rendering: pixelated;
-    bottom: 10px;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      image-rendering: pixelated;
+      bottom: 10px;
 }
+
+#background-canvas{
+    background: #ffb9ff;
+} 

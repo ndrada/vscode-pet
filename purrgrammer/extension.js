@@ -17,14 +17,13 @@ class KittyViewProvider{
 
   resolveWebviewView(webviewView){
     webviewView.webview.options = {
-      enableScripts: true, //let html panel run js - for interactivity
+      enableScripts: true,
       localResourceRoots: [
-        vscode.Uri.joinPath(this.extensionUri, 'media'),
+        vscode.Uri.joinPath(this.extensionUri, 'media'), 
         vscode.Uri.joinPath(this.extensionUri, 'scripts'),
         vscode.Uri.joinPath(this.extensionUri, 'styles')
       ]
     };
-    //store html content for webview panel
     webviewView.webview.html = this.getHtml(webviewView.webview);
   }
 
@@ -34,13 +33,19 @@ class KittyViewProvider{
     const spriteUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
     );
-    //special uri to safely access js script
+    //special uri to safely access tomato svg
+    const tomatoUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'tomato.svg')
+    );
+    //special uri to safely access js scripts
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'pet.js')
     );
-    //special uri to safely access timer script
     const timerUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'timer.js')
+    );
+    const uiUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'scripts', 'ui.js')
     );
     //special uri to safely access css
     const styleUri = webview.asWebviewUri(
@@ -54,27 +59,46 @@ class KittyViewProvider{
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="${styleUri}">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+        </style>  
         <title>Purrgrammer</title>
       </head>
       <body>
-      <h1>Tomato Cat</h1>
-        <div id="timer-container">
-          <div id="timer-display">25:00</div>
-          <div id="timer-controls">
-            <button id="start-btn">Start</button>
-            <button id="pause-btn">Pause</button>
-            <button id="reset-btn">Reset</button>
+        <!-- Intro Screen (shows first) -->
+        <div id="intro-screen">
+          <div id="intro-content">
+            <img src="${tomatoUri}" alt="tomato" id="intro-tomato" />
+            <h1 id="intro-title">Tomato Cat</h1>
           </div>
-          <div id="timer-status">Ready to focus!</div>
         </div>
         
-        <div id="container">
-          <canvas id="pet-canvas" width="32" height="32"></canvas>
+        <!-- Main App (hidden initially) -->
+        <div id="main-app" class="hidden">
+          <div id="header">
+            <img src="${tomatoUri}" alt="tomato" id="header-tomato" />
+            <h2>Tomato Cat</h2>
+          </div>
+        
+          <div id="timer-container">
+            <div id="timer-display">25:00</div>
+            <div id="timer-controls">
+              <button id="start-btn">Start</button>
+              <button id="pause-btn">Pause</button>
+              <button id="reset-btn">Reset</button>
+            </div>
+            <div id="timer-status">Ready to focus!</div>
+          </div>
+        
+          <div id="container">
+            <canvas id="pet-canvas" width="32" height="32"></canvas>
+          </div>
         </div>
         
         <script>
           window.spriteUri = "${spriteUri}";
         </script>
+        <script src="${uiUri}"></script>
         <script src="${scriptUri}"></script>
         <script src="${timerUri}"></script>
       </body>
