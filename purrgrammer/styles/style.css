@@ -1,112 +1,41 @@
 * {
       font-family: "Jersey 10", sans-serif;
       font-style: normal;
+      letter-spacing: 2px;
 }
 
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--vscode-editor-background);
     color: var(--vscode-editor-foreground);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-/* Intro Screen Styles */
-#intro-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--vscode-editor-background);
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 1s ease-out;
-}
-
-#intro-screen.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
-
-#intro-content {
-    text-align: center;
-    transform: scale(0.5);
-    animation: zoomIn 3s ease-out forwards;
-}
-
-#intro-tomato {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#intro-title {
-    font-size: 3em;
-    margin: 0;
-    font-weight: bold;
-    color: var(--vscode-textLink-foreground);
-}
-
-@keyframes zoomIn {
-    0% {
-      transform: scale(0.5);
-      opacity: 0.7;
-    }
-    70% {
-      transform: scale(1.05);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-}
-
-/* Main App Styles */
+/* Main App Styles - Always visible */
 #main-app {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease-out;
-}
-
-#main-app.show {
-    opacity: 1;
-    transform: translateY(0);
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Header Styles */
+/* Header Styles - Always at top */
 #header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-}
-
-#header-tomato {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
+    padding: 20px;
+    flex-shrink: 0;
 }
 
 #header h2 {
@@ -115,21 +44,99 @@ body {
     color: var(--vscode-textLink-foreground);
 }
 
-/* Timer Styles */
+/* Reset button in top right corner */
+#reset-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--vscode-button-foreground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#reset-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+#reset-btn:active {
+  transform: scale(0.95);
+}
+
+/* Timer Styles - Always centered in screen */
 #timer-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
-      margin-bottom: 20px;
+      z-index: 15;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      backdrop-filter: blur(5px);
 }
 
 #timer-display {
-      font-size: 2em;
+      font-size: 4em;
       font-weight: bold;
       margin-bottom: 10px;
-      color: var(--vscode-textLink-foreground);
+      color: #ffdfff;
 }
 
 #timer-controls {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+}
+
+/* Single start/pause button with glassmorphism */
+#start-pause-btn {
+  padding: 15px 30px;
+  background: rgba(219, 41, 255, 0.5);
+  backdrop-filter: blur(10px);
+  color: #ffdfff;
+  border: 1px solid #ffb9ff;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(216, 140, 228, 0.1);
+  min-width: 120px;
+}
+
+#start-pause-btn:hover {
+  background: rgba(219, 41, 255, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(216, 140, 228, 0.1);
+}
+
+#start-pause-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#start-pause-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#timer-status {
+  font-size: 16px;
+  color: var(--vscode-descriptionForeground);
+  opacity: 0.8;
 }
 
 #timer-controls button {
@@ -158,26 +165,115 @@ body {
       color: var(--vscode-descriptionForeground);
 }
 
-/* Pet Container Styles */
+/* pet Container Styles - Always at bottom */
 #container {
-      width: 100%;
-      max-width: 400px;
-      height: 200px;
-      position: relative;
-      border: 1px solid var(--vscode-panel-border);
-      border-radius: 4px;
-      overflow: hidden;
-      background-color: var(--vscode-input-background);
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 120px;
+      background: transparent;
+      z-index: 25;
 }
 
 #pet-canvas {
       position: absolute;
-      width: 64px;
-      height: 64px;
+      width: 96px;
+      height: 96px;
       image-rendering: pixelated;
-      bottom: 10px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
 }
 
-#background-canvas{
-    background: #ffb9ff;
-} 
+/* Background Styles - Pink fill + parallax at bottom */
+#background-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    background: #ffb9ff; /* Pink fill for entire background */
+}
+
+.parallax {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Anchor to bottom */
+    height: 300px; /* Fixed height for parallax area */
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position-y: bottom;
+    will-change: background-position;
+}
+
+.layer1 {
+    z-index: -30;
+}
+.layer2 {
+    z-index: -25;
+}
+.layer3 {
+    z-index: -20;
+}
+.layer4 {
+    z-index: -15;
+}
+.layer5 {
+    z-index: -10;
+}
+.layer6 {
+    z-index: -5;
+}
+
+/* Responsive adjustments for different screen heights */
+@media (min-height: 600px) {
+  .parallax {
+    height: 350px;
+  }
+}
+
+@media (min-height: 800px) {
+  .parallax {
+    height: 400px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .parallax {
+    height: 450px;
+  }
+  
+  #timer-container {
+    padding: 25px;
+  }
+  
+  #timer-display {
+    font-size: 2.2em;
+  }
+}
+
+@media (min-height: 1200px) {
+  .parallax {
+    height: 500px;
+  }
+  
+  #timer-container {
+    padding: 30px;
+  }
+  
+  #timer-display {
+    font-size: 2.5em;
+  }
+  
+  #header {
+    padding: 30px;
+  }
+  
+  #header h2 {
+    font-size: 1.8em;
+  }
+}

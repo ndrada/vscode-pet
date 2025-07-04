@@ -1,8 +1,9 @@
 class UIController {
     constructor() {
-        this.introScreen = null;
-        this.mainApp = null;
-        this.isIntroComplete = false;
+        this.parallaxLayers = [];
+        this.parallaxAnimationId = null;
+        this.parallaxOffset = 0;
+        this.isParallaxActive = false; // Start paused
         
         this.init();
     }
@@ -17,56 +18,109 @@ class UIController {
     }
     
     setupUI() {
-        this.introScreen = document.getElementById('intro-screen');
-        this.mainApp = document.getElementById('main-app');
+        // Setup parallax
+        this.setupParallax();
         
-        if (!this.introScreen || !this.mainApp) {
-            console.error('UI elements not found');
-            return;
-        }
+        // Listen for timer events
+        this.setupTimerListeners();
         
-        // Start the intro sequence
-        this.startIntroSequence();
+        // Notify that UI is ready
+        this.notifyUIReady();
     }
     
-    startIntroSequence() {
-        console.log('Starting intro sequence...');
+    setupParallax() {
+        // Get all parallax layers
+        this.parallaxLayers = document.querySelectorAll('.parallax');
         
-        // After 3 seconds, start fade out
-        setTimeout(() => {
-            this.fadeOutIntro();
-        }, 3000);
+        // Set background images from data attributes
+        this.parallaxLayers.forEach(layer => {
+            const bgUri = layer.getAttribute('data-bg');
+            if (bgUri) {
+                layer.style.backgroundImage = `url('${bgUri}')`;
+            }
+        });
+        
+        // Define slower speeds for each layer
+        // Negative values to move background left (making cat appear to walk right)
+        this.parallaxSpeeds = [
+            -0.1,  // layer1 - furthest back, slowest
+            -0.15, // layer2
+            -0.2,  // layer3
+            -0.3,  // layer4
+            -0.4,  // layer5
+            -0.5   // layer6 - closest, fastest
+        ];
+        
+        // Start parallax animation loop (but paused)
+        this.startParallax();
     }
     
-    fadeOutIntro() {
-        console.log('Fading out intro...');
+    setupTimerListeners() {
+        // Listen for custom timer events
+        document.addEventListener('timerStarted', () => {
+            this.resumeParallax();
+        });
         
-        // Add fade-out class to intro screen
-        this.introScreen.classList.add('fade-out');
+        document.addEventListener('timerPaused', () => {
+            this.pauseParallax();
+        });
         
-        // After fade out completes (1 second), show main app
-        setTimeout(() => {
-            this.showMainApp();
-        }, 1000);
+        document.addEventListener('timerBreak', () => {
+            this.pauseParallax();
+        });
+        
+        document.addEventListener('timerWorkSession', () => {
+            this.resumeParallax();
+        });
     }
     
-    showMainApp() {
-        console.log('Showing main app...');
-        
-        // Hide intro screen completely
-        this.introScreen.style.display = 'none';
-        
-        // Show main app
-        this.mainApp.classList.remove('hidden');
-        
-        // Trigger show animation
-        setTimeout(() => {
-            this.mainApp.classList.add('show');
-            this.isIntroComplete = true;
+    startParallax() {
+        const animate = () => {
+            if (this.isParallaxActive) {
+                this.parallaxOffset += 0.5;
+                
+                this.parallaxLayers.forEach((layer, index) => {
+                    const speed = this.parallaxSpeeds[index];
+                    const offset = this.parallaxOffset * speed;
+                    layer.style.backgroundPositionX = `${offset}px`;
+                });
+            }
             
-            // Notify other scripts that UI is ready
-            this.notifyUIReady();
-        }, 50);
+            this.parallaxAnimationId = requestAnimationFrame(animate);
+        };
+        
+        animate();
+    }
+    
+    pauseParallax() {
+        this.isParallaxActive = false;
+        console.log('Parallax paused - cat should idle');
+    }
+    
+    resumeParallax() {
+        this.isParallaxActive = true;
+        console.log('Parallax resumed - cat should walk');
+    }
+    
+    stopParallax() {
+        if (this.parallaxAnimationId) {
+            cancelAnimationFrame(this.parallaxAnimationId);
+            this.parallaxAnimationId = null;
+        }
+    }
+    
+    // Method to adjust parallax speed
+    setParallaxSpeed(baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+    
+    // Method to toggle parallax for development
+    toggleParallax() {
+        if (this.isParallaxActive) {
+            this.pauseParallax();
+        } else {
+            this.resumeParallax();
+        }
     }
     
     notifyUIReady() {
@@ -78,23 +132,25 @@ class UIController {
         
         // Also set a global flag
         window.uiReady = true;
-    }
-    
-    // Method to skip intro (for development/testing)
-    skipIntro() {
-        if (!this.isIntroComplete) {
-            this.introScreen.style.display = 'none';
-            this.showMainApp();
-        }
+        console.log('UI ready - no intro');
     }
 }
 
 // Initialize UI Controller
 window.uiController = new UIController();
 
-// Optional: Add keyboard shortcut to skip intro (for development)
+// Optional: keyboard shortcuts for development
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !window.uiController.isIntroComplete) {
         window.uiController.skipIntro();
     }
+    // Toggle parallax with 'P' key
+    if (e.key === 'p' || e.key === 'P') {
+        window.uiController.toggleParallax();
+    }
 });
+
+// Expose methods globally for easy adjustment
+window.setParallaxSpeed = (speed) => {
+    window.uiController.setParallaxSpeed(speed);
+};

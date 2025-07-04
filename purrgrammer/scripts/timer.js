@@ -15,23 +15,31 @@ class PomodoroTimer {
     initializeElements() {
         this.displayElement = document.getElementById('timer-display');
         this.statusElement = document.getElementById('timer-status');
-        this.startBtn = document.getElementById('start-btn');
-        this.pauseBtn = document.getElementById('pause-btn');
+        this.startPauseBtn = document.getElementById('start-pause-btn');
         this.resetBtn = document.getElementById('reset-btn');
     }
     
     bindEvents() {
-        this.startBtn.addEventListener('click', () => this.start());
-        this.pauseBtn.addEventListener('click', () => this.pause());
+        this.startPauseBtn.addEventListener('click', () => this.toggleTimer());
         this.resetBtn.addEventListener('click', () => this.reset());
+    }
+    
+    toggleTimer() {
+        if (this.isRunning) {
+            this.pause();
+        } else {
+            this.start();
+        }
     }
     
     start() {
         if (!this.isRunning) {
             this.isRunning = true;
-            this.startBtn.textContent = 'Running...';
-            this.startBtn.disabled = true;
+            this.startPauseBtn.textContent = 'Pause';
             this.updateStatus();
+            
+            // Dispatch timer started event
+            document.dispatchEvent(new CustomEvent('timerStarted'));
             
             this.intervalId = setInterval(() => {
                 this.currentTime--;
@@ -47,10 +55,12 @@ class PomodoroTimer {
     pause() {
         if (this.isRunning) {
             this.isRunning = false;
-            this.startBtn.textContent = 'Start';
-            this.startBtn.disabled = false;
+            this.startPauseBtn.textContent = 'Start';
             clearInterval(this.intervalId);
             this.updateStatus();
+            
+            // Dispatch timer paused event
+            document.dispatchEvent(new CustomEvent('timerPaused'));
         }
     }
     
@@ -58,8 +68,12 @@ class PomodoroTimer {
         this.pause();
         this.isWorkSession = true;
         this.currentTime = this.workTime;
+        this.startPauseBtn.textContent = 'Start';
         this.updateDisplay();
         this.updateStatus();
+        
+        // Dispatch work session event (since we reset to work)
+        document.dispatchEvent(new CustomEvent('timerWorkSession'));
     }
     
     sessionComplete() {
@@ -71,6 +85,9 @@ class PomodoroTimer {
             this.currentTime = this.breakTime;
             this.updateStatus('Break time! Take a rest 😸');
             
+            // Dispatch break event
+            document.dispatchEvent(new CustomEvent('timerBreak'));
+            
             // Notify the pet (if you want to add special break behavior)
             if (window.petController) {
                 window.petController.startBreak();
@@ -80,6 +97,9 @@ class PomodoroTimer {
             this.isWorkSession = true;
             this.currentTime = this.workTime;
             this.updateStatus('Break over! Ready to focus 💪');
+            
+            // Dispatch work session event
+            document.dispatchEvent(new CustomEvent('timerWorkSession'));
             
             // Notify the pet
             if (window.petController) {
@@ -114,7 +134,7 @@ class PomodoroTimer {
     }
 }
 
-// At the end of the file, replace the initialization with:
+// Initialize timer
 function initTimer() {
     if (window.uiReady) {
         window.pomodoroTimer = new PomodoroTimer();
@@ -125,5 +145,4 @@ function initTimer() {
     }
 }
 
-// Initialize timer
 initTimer();

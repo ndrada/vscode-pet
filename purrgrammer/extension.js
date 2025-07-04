@@ -19,7 +19,7 @@ class KittyViewProvider{
     webviewView.webview.options = {
       enableScripts: true,
       localResourceRoots: [
-        vscode.Uri.joinPath(this.extensionUri, 'media'), 
+        vscode.Uri.joinPath(this.extensionUri, 'media'),
         vscode.Uri.joinPath(this.extensionUri, 'scripts'),
         vscode.Uri.joinPath(this.extensionUri, 'styles')
       ]
@@ -33,10 +33,27 @@ class KittyViewProvider{
     const spriteUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
     );
-    //special uri to safely access tomato svg
-    const tomatoUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'tomato.svg')
+    
+    // Background layer URIs
+    const bg1Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '1.png')
     );
+    const bg2Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '2.png')
+    );
+    const bg3Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '3.png')
+    );
+    const bg4Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '4.png')
+    );
+    const bg5Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '5.png')
+    );
+    const bg6Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '6.png')
+    );
+    
     //special uri to safely access js scripts
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'pet.js')
@@ -61,35 +78,34 @@ class KittyViewProvider{
         <link rel="stylesheet" href="${styleUri}">
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
-        </style>  
+        </style>
         <title>Purrgrammer</title>
       </head>
       <body>
-        <!-- Intro Screen (shows first) -->
-        <div id="intro-screen">
-          <div id="intro-content">
-            <img src="${tomatoUri}" alt="tomato" id="intro-tomato" />
-            <h1 id="intro-title">Tomato Cat</h1>
-          </div>
+        <div id="background-canvas">
+          <div class="parallax layer1" data-bg="${bg1Uri}"></div>
+          <div class="parallax layer2" data-bg="${bg2Uri}"></div>
+          <div class="parallax layer3" data-bg="${bg3Uri}"></div>
+          <div class="parallax layer4" data-bg="${bg4Uri}"></div>
+          <div class="parallax layer5" data-bg="${bg5Uri}"></div>
+          <div class="parallax layer6" data-bg="${bg6Uri}"></div>
         </div>
         
-        <!-- Main App (hidden initially) -->
-        <div id="main-app" class="hidden">
+        <!-- Main App (no intro) -->
+        <div id="main-app">
           <div id="header">
-            <img src="${tomatoUri}" alt="tomato" id="header-tomato" />
-            <h2>Tomato Cat</h2>
+            <h2>Purrgrammer</h2>
+            <button id="reset-btn" title="Reset Timer">↻</button>
           </div>
-        
+          
           <div id="timer-container">
             <div id="timer-display">25:00</div>
             <div id="timer-controls">
-              <button id="start-btn">Start</button>
-              <button id="pause-btn">Pause</button>
-              <button id="reset-btn">Reset</button>
+              <button id="start-pause-btn">Start</button>
             </div>
             <div id="timer-status">Ready to focus!</div>
           </div>
-        
+          
           <div id="container">
             <canvas id="pet-canvas" width="32" height="32"></canvas>
           </div>
