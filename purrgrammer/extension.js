@@ -53,6 +53,9 @@ class KittyViewProvider{
     const bg6Uri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '6.png')
     );
+    const bg7Uri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '7.png')
+    );
     
     //special uri to safely access js scripts
     const scriptUri = webview.asWebviewUri(
@@ -89,6 +92,7 @@ class KittyViewProvider{
           <div class="parallax layer4" data-bg="${bg4Uri}"></div>
           <div class="parallax layer5" data-bg="${bg5Uri}"></div>
           <div class="parallax layer6" data-bg="${bg6Uri}"></div>
+          <div class="parallax layer7" data-bg="${bg7Uri}"></div>
         </div>
         
         <!-- Main App (no intro) -->

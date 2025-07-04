@@ -83,10 +83,11 @@ body {
       transform: translate(-50%, -50%);
       text-align: center;
       z-index: 15;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(86, 52, 149, 0.1);
       padding: 20px;
       border-radius: 8px;
       backdrop-filter: blur(5px);
+      z-index: 100;
 }
 
 #timer-display {
@@ -103,10 +104,10 @@ body {
 /* Single start/pause button with glassmorphism */
 #start-pause-btn {
   padding: 15px 30px;
-  background: rgba(219, 41, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   color: #ffdfff;
-  border: 1px solid #ffb9ff;
+  border: 1px solid ;
   border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
@@ -114,6 +115,7 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(216, 140, 228, 0.1);
   min-width: 120px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 #start-pause-btn:hover {
@@ -134,35 +136,12 @@ body {
 }
 
 #timer-status {
-  font-size: 16px;
-  color: var(--vscode-descriptionForeground);
-  opacity: 0.8;
-}
-
-#timer-controls button {
-      margin: 0 5px;
-      padding: 8px 16px;
-      background-color: var(--vscode-button-background);
-      color: var(--vscode-button-foreground);
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.2s ease;
-}
-
-#timer-controls button:hover {
-      background-color: var(--vscode-button-hoverBackground);
-}
-
-#timer-controls button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-#timer-status {
-      font-size: 14px;
-      color: var(--vscode-descriptionForeground);
+    font-size: 16px;
+    color: white;
+    /* border-radius: 20px; */
+    /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); */
+    /* backdrop-filter: blur(10px); */
+    margin-top: 10px;
 }
 
 /* pet Container Styles - Always at bottom */
@@ -227,6 +206,9 @@ body {
 }
 .layer6 {
     z-index: -5;
+}
+.layer7 {
+    z-index: 20;
 }
 
 /* Responsive adjustments for different screen heights */

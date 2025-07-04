@@ -1,13 +1,14 @@
 class PomodoroTimer {
     constructor() {
-        this.workTime = 25 * 60; // 25 minutes in seconds
-        this.breakTime = 5 * 60; // 5 minutes in seconds
+        this.workTime = 0.2 * 60; // 25 minutes in seconds
+        this.breakTime = 0.2 * 60; // 5 minutes in seconds
         this.currentTime = this.workTime;
         this.isRunning = false;
         this.isWorkSession = true;
         this.intervalId = null;
         
         this.initializeElements();
+        this.loadState();
         this.updateDisplay();
         this.bindEvents();
     }
@@ -44,6 +45,12 @@ class PomodoroTimer {
             this.intervalId = setInterval(() => {
                 this.currentTime--;
                 this.updateDisplay();
+
+                
+                // Only save state every 5 seconds to reduce overhead
+                if (this.currentTime % 5 === 0) {
+                    this.saveState();
+                }
                 
                 if (this.currentTime <= 0) {
                     this.sessionComplete();
@@ -58,6 +65,7 @@ class PomodoroTimer {
             this.startPauseBtn.textContent = 'Start';
             clearInterval(this.intervalId);
             this.updateStatus();
+            this.saveState();
             
             // Dispatch timer paused event
             document.dispatchEvent(new CustomEvent('timerPaused'));
@@ -131,6 +139,40 @@ class PomodoroTimer {
         } else {
             this.statusElement.textContent = this.isWorkSession ? 'Ready to focus!' : 'Break paused';
         }
+    }
+    
+    loadState() {
+        try {
+            const saved = localStorage.getItem('pomodoroState');
+            console.log('Loading state:', saved);
+            
+            if (saved) {
+                const state = JSON.parse(saved);
+                const timePassed = Math.floor((Date.now() - state.lastSaved) / 1000);
+                
+                this.isWorkSession = state.isWorkSession;
+                this.currentTime = Math.max(0, state.currentTime - timePassed);
+                
+                if (state.isRunning && this.currentTime > 0) {
+                    console.log('Timer was running, ready to resume');
+                } else if (this.currentTime <= 0) {
+                    this.currentTime = this.isWorkSession ? this.workTime : this.breakTime;
+                }
+            }
+        } catch (error) {
+            console.error('Error loading timer state:', error);
+            this.reset();
+        }
+    }
+    
+    saveState() {
+        const state = {
+            currentTime: this.currentTime,
+            isWorkSession: this.isWorkSession,
+            isRunning: this.isRunning,
+            lastSaved: Date.now()
+        };
+        localStorage.setItem('pomodoroState', JSON.stringify(state));
     }
 }
 

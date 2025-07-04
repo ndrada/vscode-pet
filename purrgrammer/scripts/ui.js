@@ -48,7 +48,8 @@ class UIController {
             -0.2,  // layer3
             -0.3,  // layer4
             -0.4,  // layer5
-            -0.5   // layer6 - closest, fastest
+            -0.5,  // layer6
+            -0.7   // layer7 - closest, fastest
         ];
         
         // Start parallax animation loop (but paused)
@@ -58,19 +59,26 @@ class UIController {
     setupTimerListeners() {
         // Listen for custom timer events
         document.addEventListener('timerStarted', () => {
-            this.resumeParallax();
+            // Only resume parallax if it's a work session
+            if (window.pomodoroTimer && window.pomodoroTimer.isWorkSession) {
+                this.resumeParallax();
+            }
         });
         
         document.addEventListener('timerPaused', () => {
             this.pauseParallax();
         });
         
+        // Add listeners for break and work session events
         document.addEventListener('timerBreak', () => {
-            this.pauseParallax();
+            this.pauseParallax(); // Stop parallax when break starts
         });
         
         document.addEventListener('timerWorkSession', () => {
-            this.resumeParallax();
+            // Only resume if timer is actually running
+            if (window.pomodoroTimer && window.pomodoroTimer.isRunning) {
+                this.resumeParallax();
+            }
         });
     }
     
