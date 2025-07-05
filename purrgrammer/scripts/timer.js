@@ -62,7 +62,7 @@ class PomodoroTimer {
     pause() {
         if (this.isRunning) {
             this.isRunning = false;
-            this.startPauseBtn.textContent = 'Start';
+            this.startPauseBtn.textContent = 'START';
             clearInterval(this.intervalId);
             this.updateStatus();
             this.saveState();
@@ -76,7 +76,7 @@ class PomodoroTimer {
         this.pause();
         this.isWorkSession = true;
         this.currentTime = this.workTime;
-        this.startPauseBtn.textContent = 'Start';
+        this.startPauseBtn.textContent = 'START';
         this.updateDisplay();
         this.updateStatus();
         
@@ -91,7 +91,7 @@ class PomodoroTimer {
             // Work session complete, start break
             this.isWorkSession = false;
             this.currentTime = this.breakTime;
-            this.updateStatus('Break time! Take a rest 😸');
+            this.updateStatus('Break time! Take a rest');
             
             // Dispatch break event
             document.dispatchEvent(new CustomEvent('timerBreak'));
@@ -104,7 +104,8 @@ class PomodoroTimer {
             // Break complete, back to work
             this.isWorkSession = true;
             this.currentTime = this.workTime;
-            this.updateStatus('Break over! Ready to focus 💪');
+            this.updateStatus(
+                'Break over! Ready to focus!');
             
             // Dispatch work session event
             document.dispatchEvent(new CustomEvent('timerWorkSession'));
@@ -116,10 +117,10 @@ class PomodoroTimer {
         }
         
         this.updateDisplay();
-        // Auto-start next session after 3 seconds
+        // Auto-start next session after 20 seconds
         setTimeout(() => {
             this.start();
-        }, 3000);
+        }, 20000);
     }
     
     updateDisplay() {
@@ -135,7 +136,7 @@ class PomodoroTimer {
         }
         
         if (this.isRunning) {
-            this.statusElement.textContent = this.isWorkSession ? 'Focus time! 🎯' : 'Break time! 😌';
+            this.statusElement.textContent = this.isWorkSession ? 'Focus time!' : 'Break time!';
         } else {
             this.statusElement.textContent = this.isWorkSession ? 'Ready to focus!' : 'Break paused';
         }

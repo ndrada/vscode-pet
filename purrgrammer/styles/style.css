@@ -34,6 +34,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 20px;
     padding: 20px;
     flex-shrink: 0;
 }
@@ -41,7 +43,7 @@ body {
 #header h2 {
     margin: 0;
     font-size: 1.5em;
-    color: var(--vscode-textLink-foreground);
+    color: violet;
 }
 
 /* Reset button in top right corner */
@@ -62,7 +64,7 @@ body {
   justify-content: center;
   font-size: 18px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
 }
 
 #reset-btn:hover {
@@ -84,14 +86,15 @@ body {
       text-align: center;
       z-index: 15;
       background: rgba(86, 52, 149, 0.1);
-      padding: 20px;
-      border-radius: 8px;
-      backdrop-filter: blur(5px);
+      padding: 30px 50px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       z-index: 100;
 }
 
 #timer-display {
-      font-size: 4em;
+      font-size: clamp(2.5em, 8vw, 6em);
       font-weight: bold;
       margin-bottom: 10px;
       color: #ffdfff;
@@ -115,7 +118,7 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(216, 140, 228, 0.1);
   min-width: 120px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  /* text-shadow: 1px 1px 2px rgba(0,0,0,0.5); */
 }
 
 #start-pause-btn:hover {
@@ -136,12 +139,14 @@ body {
 }
 
 #timer-status {
-    font-size: 16px;
-    color: white;
-    /* border-radius: 20px; */
-    /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); */
-    /* backdrop-filter: blur(10px); */
+    font-size: 50px;
+    text-align: center;
+    color: violet;
     margin-top: 10px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* pet Container Styles - Always at bottom */
@@ -212,7 +217,7 @@ body {
 }
 
 /* Responsive adjustments for different screen heights */
-@media (min-height: 600px) {
+/* @media (min-height: 600px) {
   .parallax {
     height: 350px;
   }
@@ -258,4 +263,4 @@ body {
   #header h2 {
     font-size: 1.8em;
   }
-}
+} */

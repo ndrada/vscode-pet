@@ -102,12 +102,13 @@ class KittyViewProvider{
             <button id="reset-btn" title="Reset Timer">↻</button>
           </div>
           
+          <div id="timer-status">Ready to focus!</div>
+
           <div id="timer-container">
             <div id="timer-display">25:00</div>
             <div id="timer-controls">
               <button id="start-pause-btn">Start</button>
             </div>
-            <div id="timer-status">Ready to focus!</div>
           </div>
           
           <div id="container">
