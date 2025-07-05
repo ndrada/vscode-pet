@@ -57,28 +57,26 @@ class UIController {
     }
     
     setupTimerListeners() {
-        // Listen for custom timer events
         document.addEventListener('timerStarted', () => {
-            // Only resume parallax if it's a work session
-            if (window.pomodoroTimer && window.pomodoroTimer.isWorkSession) {
+            if(window.pomodoroTimer && window.pomodoroTimer.isWorkSession) {
+                console.log('[ui] timerStarted: work sesh, paralalax on');
                 this.resumeParallax();
+            } else {
+                console.log('[ui] timerStarted: break sesh, paralalax off');
+                this.pauseParallax();
             }
         });
         
+        //always pause parallax when timer is paused
         document.addEventListener('timerPaused', () => {
+            console.log('[ui] timerPaused');
             this.pauseParallax();
         });
         
         // Add listeners for break and work session events
         document.addEventListener('timerBreak', () => {
+            console.log('[ui] timerBreak');
             this.pauseParallax(); // Stop parallax when break starts
-        });
-        
-        document.addEventListener('timerWorkSession', () => {
-            // Only resume if timer is actually running
-            if (window.pomodoroTimer && window.pomodoroTimer.isRunning) {
-                this.resumeParallax();
-            }
         });
     }
     

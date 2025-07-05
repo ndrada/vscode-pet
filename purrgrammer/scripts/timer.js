@@ -150,18 +150,41 @@ class PomodoroTimer {
                 const state = JSON.parse(saved);
                 const timePassed = Math.floor((Date.now() - state.lastSaved) / 1000);
                 
-                this.isWorkSession = state.isWorkSession;
-                this.currentTime = Math.max(0, state.currentTime - timePassed);
-                
-                if (state.isRunning && this.currentTime > 0) {
-                    console.log('Timer was running, ready to resume');
-                } else if (this.currentTime <= 0) {
-                    this.currentTime = this.isWorkSession ? this.workTime : this.breakTime;
+                //only restore state if it's valid and the timer wasn't expired
+                if(
+                    typeof state.isWorkSession === 'boolean' &&
+                    typeof state.currentTime === 'number' &&
+                    typeof state.isRunning === 'boolean'
+                ){
+                    //only use saved state if there is still time left
+                    const timeLeft = Math.max(0, state.currentTime - timePassed);
+                    if(timeLeft > 0){
+                        this.isWorkSession = state.isWorkSession;
+                        this.currentTime = timeLeft;
+                        this.isRunning = false; //always start paused on reload;
+                    } else {
+                        //session expired, reset to new work session
+                        this.isWorkSession = true;
+                        this.currentTime = this.workTime;
+                        this.isRunning = false;
+                    }
+                } else {
+                    //invalid saved state, start fresh
+                    this.isWorkSession = true;
+                    this.currentTime = this.workTime;
+                    this.isRunning = false;
                 }
+            } else {
+                //no saved state, start fresh
+                this.isWorkSession = true;
+                this.currentTime = this.workTime;
+                this.isRunning = false;
             }
         } catch (error) {
             console.error('Error loading timer state:', error);
-            this.reset();
+            this.isWorkSession = true;
+            this.currentTime = this.workTime;
+            this.isRunning = false;
         }
     }
     

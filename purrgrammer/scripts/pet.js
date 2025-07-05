@@ -37,7 +37,7 @@ function initPet() {
     
     let currentAnimation = 'idle';
     let animFrame = 0;
-    let frameDelay = 25; // Slower animation - was 10, now 25 (higher = slower)
+    let frameDelay = 20; // higher = slower
     let frameCount = 0;
     let facingRight = true;
     let shouldLoop = true;
@@ -54,7 +54,9 @@ function initPet() {
     
     document.addEventListener('timerPaused', () => {
         isTimerRunning = false;
-        playAnimation('idle');
+        if( !isBreakTime) {
+            playAnimation('idle');
+        }
     });
     
     document.addEventListener('timerBreak', () => {
