@@ -72,6 +72,15 @@ class KittyViewProvider{
       vscode.Uri.joinPath(this.extensionUri, 'styles', 'style.css')
     );
 
+    //sounds
+    const meowUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'meow.wav')
+    );
+
+    const tapUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'tap.wav')
+    );
+
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -98,6 +107,7 @@ class KittyViewProvider{
         <!-- Main App (no intro) -->
         <div id="main-app">
           <div id="header">
+            <button id="sound-btn" title="Sound Button">🕪</button>
             <h2>Purrgrammer</h2>
             <button id="reset-btn" title="Reset Timer">↻</button>
           </div>
@@ -115,7 +125,7 @@ class KittyViewProvider{
             <canvas id="pet-canvas" width="32" height="32"></canvas>
           </div>
         </div>
-        
+
         <script>
           window.spriteUri = "${spriteUri}";
         </script>
