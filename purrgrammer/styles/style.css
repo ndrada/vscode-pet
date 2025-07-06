@@ -246,6 +246,12 @@ body {
     justify-content: center;
     flex-direction: column;
   }
+
+  #sound-btn, #reset-btn {
+    z-index: 200;
+  }
+
+
 } 
 
 /* Responsive adjustments for different screen heights */
