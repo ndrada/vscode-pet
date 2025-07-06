@@ -52,9 +52,12 @@ class PomodoroTimer {
                     window.soundManager.playTicking();
                 }
 
-                // at 0, fade out ticking and play meow
-                if(this.currentTime === 0 && window.soundManager){
+                if(this.currentTime === 1 && window.soundManager){
                     window.soundManager.fadeOutTicking();
+                }
+                
+                // at 0 play meow
+                if(this.currentTime === 0 && window.soundManager){
                     window.soundManager.meow.currentTime = 0;
                     window.soundManager.playMeow();
                 }

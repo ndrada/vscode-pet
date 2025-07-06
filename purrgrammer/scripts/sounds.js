@@ -21,7 +21,7 @@ class SoundManager {
         this.tap = new Audio(window.tapUri);
         this.meow = new Audio(window.meowUri);
 
-        //prime audio on any button click
+        // Prime audio on any button click
         const prime = () => {
             if(this.primed) return;
             this.tap.muted = true;
@@ -39,6 +39,13 @@ class SoundManager {
             this.primed = true;
         }
         
+        // Listen for ANY button click to prime audio
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                prime();
+            }
+        });
+        
         // Button logic
         if (this.soundBtn) {
             this.soundBtn.addEventListener('click', () => this.toggleSound());
@@ -53,10 +60,10 @@ class SoundManager {
         this.tap.currentTime = 0;
         this.tap.volume = 1;
         this.tap.loop = false;
-        this.tap.play();
-
-        //stop after 5 seconds
-        this.tickingTimeout = setTimeout(() => this.fadeOutTicking(), 4000);
+        this.tap.play().catch(() => {}); // handle potential errors
+        this.tickingTimeout = setTimeout(() => {
+            this.fadeOutTicking();
+        }, 3000);
     }
 
     fadeOutTicking(){
@@ -86,7 +93,7 @@ class SoundManager {
     playMeow() {
         if (!this.soundEnabled) return;
         this.meow.currentTime = 0;
-        this.meow.play();
+        this.meow.play().catch(() => {}); // handle potential errors
     }
 
     toggleSound() {
@@ -96,7 +103,9 @@ class SoundManager {
     }
 
     updateIcon() {
-        this.soundBtn.innerHTML = this.soundEnabled ? '🕪' : '🕨';
+        if (this.soundBtn) {
+            this.soundBtn.innerHTML = this.soundEnabled ? '🕪' : '🕨';
+        }
     }
 }
 
