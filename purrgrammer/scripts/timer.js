@@ -56,7 +56,7 @@ class PomodoroTimer {
                 if(this.currentTime === 0 && window.soundManager){
                     window.soundManager.fadeOutTicking();
                     window.soundManager.meow.currentTime = 0;
-                    window.soundManager.meow.play();
+                    window.soundManager.playMeow();
                 }
                 
                 // Only save state every 5 seconds to reduce overhead
