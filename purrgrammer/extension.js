@@ -67,6 +67,9 @@ class KittyViewProvider{
     const uiUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'ui.js')
     );
+    const soundManagerUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'scripts', 'sounds.js')
+    );
     //special uri to safely access css
     const styleUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'styles', 'style.css')
@@ -74,11 +77,11 @@ class KittyViewProvider{
 
     //sounds
     const meowUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'meow.wav')
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'sounds', 'meowx2.wav')
     );
 
     const tapUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'tap.wav')
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'sounds', 'ticking.wav')
     );
 
     return `
@@ -126,9 +129,15 @@ class KittyViewProvider{
           </div>
         </div>
 
+
         <script>
           window.spriteUri = "${spriteUri}";
         </script>
+        <script>
+          window.meowUri = "${meowUri}";
+          window.tapUri = "${tapUri}";
+        </script>
+        <script src="${soundManagerUri}"></script>
         <script src="${uiUri}"></script>
         <script src="${scriptUri}"></script>
         <script src="${timerUri}"></script>
