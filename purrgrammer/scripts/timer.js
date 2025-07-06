@@ -46,6 +46,18 @@ class PomodoroTimer {
                 this.currentTime--;
                 this.updateDisplay();
 
+                //sound logic
+                //play ticking sound for last 5 second for work and break
+                if(this.currentTime === 5 && window.soundManager){
+                    window.soundManager.playTicking();
+                }
+
+                // at 0, fade out ticking and play meow
+                if(this.currentTime === 0 && window.soundManager){
+                    window.soundManager.fadeOutTicking();
+                    window.soundManager.meow.currentTime = 0;
+                    window.soundManager.meow.play();
+                }
                 
                 // Only save state every 5 seconds to reduce overhead
                 if (this.currentTime % 5 === 0) {
