@@ -82,7 +82,12 @@ class PomodoroTimer {
             this.updateStatus();
             this.saveState();
             
-            // Dispatch timer paused event
+            // immediately stop ticking sound when paused
+            if (window.soundManager) {
+                window.soundManager.stopTicking();
+            }
+            
+            // dispatch timer paused event
             document.dispatchEvent(new CustomEvent('timerPaused'));
         }
     }
@@ -94,6 +99,11 @@ class PomodoroTimer {
         this.startPauseBtn.textContent = 'START';
         this.updateDisplay();
         this.updateStatus();
+        
+        // stop any ticking sound when resetting
+        if (window.soundManager) {
+            window.soundManager.stopTicking();
+        }
         
         // Dispatch work session event (since we reset to work)
         document.dispatchEvent(new CustomEvent('timerWorkSession'));
