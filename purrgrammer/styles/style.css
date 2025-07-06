@@ -117,7 +117,7 @@ body {
 }
 
 #timer-display {
-      font-size: clamp(2.5em, 8vw, 6em);
+      font-size: clamp(4em, 8vw, 6em);
       font-weight: bold;
       margin-bottom: 10px;
       color: #ffdfff;
@@ -162,14 +162,11 @@ body {
 }
 
 #timer-status {
-    font-size: 50px;
+    font-size: 35px;
     text-align: center;
     color: violet;
     margin-top: 10px;
-    position: fixed;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
 }
 
 /* pet Container Styles - Always at bottom */
@@ -238,6 +235,18 @@ body {
 .layer7 {
     z-index: 20;
 }
+
+@media (max-height: 300px) {
+  #timer-container {
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+} 
 
 /* Responsive adjustments for different screen heights */
 /* @media (min-height: 600px) {
