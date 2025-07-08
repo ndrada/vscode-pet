@@ -41,16 +41,14 @@ body {
 }
 
 #header h2 {
-    margin: 0;
+    margin-top: 50px;
     font-size: 1.5em;
     color: violet;
 }
 
-/* Reset button in top right corner */
-#reset-btn {
+/* settings buttons styles */
+#reset-btn, #sound-btn, #mode-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -64,40 +62,32 @@ body {
   justify-content: center;
   font-size: 18px;
   transition: all 0.3s ease;
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
 }
 
-#reset-btn:hover, #sound-btn:hover {
+#reset-btn:hover, #sound-btn:hover, #mode-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 
-#reset-btn:active, #sound-btn:active {
+#reset-btn:active, #sound-btn:active, #mode-btn:active {
   transform: scale(0.95);
 }
 
-/*Sound button styles */
-
-#sound-btn {
-  position: absolute;
+#reset-btn {
   top: 20px;
   left: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--vscode-button-foreground);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.3s ease;
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+}
+
+#mode-btn {
+  top: 70px;
+  left: 20px;
+}
+
+#sound-btn {
+  top: 120px;
+  left: 20px;
 }
 
 /* Timer Styles - Always centered in screen */
@@ -236,6 +226,27 @@ body {
     z-index: 20;
 }
 
+/* dark mode styles */
+body.dark-mode #timer-display,
+body.dark-mode #timer-status,
+body.dark-mode #header h2 {
+  color: #d7eaff;
+}
+
+body.dark-mode #background-canvas {
+    background: #1f52b7;
+}
+
+body.dark-mode #start-pause-btn {
+  background: transparent;
+  color: #d7eaff;
+}
+body.dark-mode #start-pause-btn:hover {
+  color: #1f52b7;
+  background: #d7eaff;
+  border: 1px solid #1f52b7;
+}
+
 @media (max-height: 300px) {
   #timer-container {
     width: 100%;
@@ -250,8 +261,6 @@ body {
   #sound-btn, #reset-btn {
     z-index: 200;
   }
-
-
 } 
 
 /* Responsive adjustments for different screen heights */

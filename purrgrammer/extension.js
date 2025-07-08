@@ -34,30 +34,25 @@ class KittyViewProvider{
       vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
     );
     
-    // Background layer URIs
-    const bg1Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '1.png')
-    );
-    const bg2Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '2.png')
-    );
-    const bg3Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '3.png')
-    );
-    const bg4Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '4.png')
-    );
-    const bg5Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '5.png')
-    );
-    const bg6Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '6.png')
-    );
-    const bg7Uri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.extensionUri, 'media', 'background', '7.png')
-    );
+    //dynamic background layer URIs
+    function getBgUri(extensionUri, webview, mode='background', count=7){
+      return Array.from({length: count}, (_, i) => 
+        webview.asWebviewUri(
+          vscode.Uri.joinPath(extensionUri, 'media', mode, `${i+1}.png`)
+        ));
+    }
+
+    const bgUri = getBgUri(this.extensionUri, webview, 'background', 7);
+    const darkBgUri = getBgUri(this.extensionUri, webview, 'darkmode', 6);
+
+    const bgLayersHtml = bgUri.map((uri, i) => 
+    `<div class="parallax layer${i+1}" data-bg="${uri}"></div>`).join('');
+
+    const darkBgLayersHtml = darkBgUri.map((uri, i) => 
+      `<div class="parallax layer${i+1}" data-bg="${uri}"></div>`).join('');
+
     
-    //special uri to safely access js scripts
+    //script uris
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'scripts', 'pet.js')
     );
@@ -98,19 +93,15 @@ class KittyViewProvider{
       </head>
       <body>
         <div id="background-canvas">
-          <div class="parallax layer1" data-bg="${bg1Uri}"></div>
-          <div class="parallax layer2" data-bg="${bg2Uri}"></div>
-          <div class="parallax layer3" data-bg="${bg3Uri}"></div>
-          <div class="parallax layer4" data-bg="${bg4Uri}"></div>
-          <div class="parallax layer5" data-bg="${bg5Uri}"></div>
-          <div class="parallax layer6" data-bg="${bg6Uri}"></div>
-          <div class="parallax layer7" data-bg="${bg7Uri}"></div>
+          <div id="bg-light">${bgLayersHtml}</div>
+          <div id="bg-dark" style="display:none">${darkBgLayersHtml}</div>
         </div>
         
         <!-- Main App (no intro) -->
         <div id="main-app">
           <div id="header">
             <button id="sound-btn" title="Sound Button">🕪</button>
+            <button id="mode-btn" title="Toggle Dark Mode"></button>
             <h2>Purrgrammer</h2>
             <button id="reset-btn" title="Reset Timer">↻</button>
           </div>

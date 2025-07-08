@@ -26,13 +26,31 @@ class UIController {
         
         // Notify that UI is ready
         this.notifyUIReady();
+
+        const modeBtn = document.getElementById('mode-btn');
+        if(modeBtn){
+            modeBtn.addEventListener('click', () => {
+                this.parallaxToggleMode();
+            });
+        }
     }
     
-    setupParallax() {
-        // Get all parallax layers
-        this.parallaxLayers = document.querySelectorAll('.parallax');
-        
-        // Set background images from data attributes
+    setupParallax(mode = 'light') {
+        this.currentMode = mode; //light or dark
+
+        //only select visible layers
+        if(mode === 'light') {
+            this.parallaxLayers = document.querySelectorAll('#bg-light .parallax');
+            this.parallaxSpeeds = [
+                -0.1, -0.15, -0.2, -0.3, -0.4, -0.5, -0.7 // 7 layers
+            ];
+        } else {
+            this.parallaxLayers = document.querySelectorAll('#bg-dark .parallax');
+            this.parallaxSpeeds = [
+                -0.1, -0.15, -0.2, -0.3, -0.4, -0.6 // 6 layers
+            ];
+        }        
+        // set background images from data attributes
         this.parallaxLayers.forEach(layer => {
             const bgUri = layer.getAttribute('data-bg');
             if (bgUri) {
@@ -40,20 +58,22 @@ class UIController {
             }
         });
         
-        // Define slower speeds for each layer
-        // Negative values to move background left (making cat appear to walk right)
-        this.parallaxSpeeds = [
-            -0.1,  // layer1 - furthest back, slowest
-            -0.15, // layer2
-            -0.2,  // layer3
-            -0.3,  // layer4
-            -0.4,  // layer5
-            -0.5,  // layer6
-            -0.7   // layer7 - closest, fastest
-        ];
-        
-        // Start parallax animation loop (but paused)
         this.startParallax();
+    }
+
+    parallaxToggleMode(){
+        //flip mode
+        this.currentMode = this.currentMode === 'light' ? 'dark' : 'light';
+
+        // show/hide parallax layers
+        document.getElementById('bg-light').style.display = this.currentMode === 'light' ? '' : 'none';
+        document.getElementById('bg-dark').style.display = this.currentMode === 'dark' ? '' : 'none';
+
+        //set the right parallax layers and speeds
+        this.setupParallax(this.currentMode);
+
+        //add dark mode css
+        document.body.classList.toggle('dark-mode', this.currentMode === 'dark');
     }
     
     setupTimerListeners() {
