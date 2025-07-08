@@ -13,7 +13,6 @@ function initPet() {
     const container = document.getElementById('container');
     
     if (!canvas || !container || !window.spriteUri) {
-        console.log('Waiting for elements...', { canvas: !!canvas, container: !!container, spriteUri: !!window.spriteUri });
         setTimeout(initPet, 100);
         return;
     }
@@ -150,21 +149,14 @@ function initPet() {
                 default:
                     frameDelay = 25;
             }
-            
-            console.log(`Playing animation: ${name}, frameDelay: ${frameDelay}, shouldLoop: ${shouldLoop}`);
         }
     }
     
     sprite.onload = function(){
-        console.log('Sprite loaded, starting animation');
         animate();
         
         // Start with idle animation
         playAnimation('idle');
-    };
-    
-    sprite.onerror = function(){
-        console.error('Failed to load sprite');
     };
 
     // Expose pet controller for external control

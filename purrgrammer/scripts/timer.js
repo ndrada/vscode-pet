@@ -6,6 +6,8 @@ class PomodoroTimer {
         this.isRunning = false;
         this.isWorkSession = true;
         this.intervalId = null;
+        this.autoStartTimeout = null; // Add this for auto-start
+        this.isFirstSession = true; // Track if it's the first work session
         
         this.initializeElements();
         this.loadState();
@@ -77,36 +79,39 @@ class PomodoroTimer {
     pause() {
         if (this.isRunning) {
             this.isRunning = false;
-            this.startPauseBtn.textContent = 'START';
             clearInterval(this.intervalId);
-            this.updateStatus();
-            this.saveState();
+            this.startPauseBtn.textContent = 'Start';
             
-            // immediately stop ticking sound when paused
-            if (window.soundManager) {
-                window.soundManager.stopTicking();
+            // Clear auto-start if paused manually
+            if (this.autoStartTimeout) {
+                clearInterval(this.autoStartTimeout);
+                this.autoStartTimeout = null;
+                this.startPauseBtn.disabled = false;
             }
             
-            // dispatch timer paused event
+            // Dispatch timer paused event
             document.dispatchEvent(new CustomEvent('timerPaused'));
         }
     }
     
     reset() {
         this.pause();
+        
+        // Clear auto-start countdown if active
+        if (this.autoStartTimeout) {
+            clearInterval(this.autoStartTimeout);
+            this.autoStartTimeout = null;
+            this.startPauseBtn.disabled = false;
+        }
+        
         this.isWorkSession = true;
+        this.isFirstSession = true; // Reset to first session
         this.currentTime = this.workTime;
-        this.startPauseBtn.textContent = 'START';
         this.updateDisplay();
         this.updateStatus();
         
-        // stop any ticking sound when resetting
-        if (window.soundManager) {
-            window.soundManager.stopTicking();
-        }
-        
-        // Dispatch work session event (since we reset to work)
-        document.dispatchEvent(new CustomEvent('timerWorkSession'));
+        // Dispatch reset event
+        document.dispatchEvent(new CustomEvent('timerReset'));
     }
     
     sessionComplete() {
@@ -170,7 +175,6 @@ class PomodoroTimer {
     loadState() {
         try {
             const saved = localStorage.getItem('pomodoroState');
-            console.log('Loading state:', saved);
             
             if (saved) {
                 const state = JSON.parse(saved);

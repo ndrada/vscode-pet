@@ -91,23 +91,19 @@ class UIController {
     setupTimerListeners() {
         document.addEventListener('timerStarted', () => {
             if(window.pomodoroTimer && window.pomodoroTimer.isWorkSession) {
-                console.log('[ui] timerStarted: work sesh, paralalax on');
                 this.resumeParallax();
             } else {
-                console.log('[ui] timerStarted: break sesh, paralalax off');
                 this.pauseParallax();
             }
         });
         
         //always pause parallax when timer is paused
         document.addEventListener('timerPaused', () => {
-            console.log('[ui] timerPaused');
             this.pauseParallax();
         });
         
         // Add listeners for break and work session events
         document.addEventListener('timerBreak', () => {
-            console.log('[ui] timerBreak');
             this.pauseParallax(); // Stop parallax when break starts
         });
     }
@@ -138,12 +134,10 @@ class UIController {
     
     pauseParallax() {
         this.isParallaxActive = false;
-        console.log('Parallax paused - cat should idle');
     }
     
     resumeParallax() {
         this.isParallaxActive = true;
-        console.log('Parallax resumed - cat should walk');
     }
     
     stopParallax() {
@@ -176,7 +170,6 @@ class UIController {
         
         // Also set a global flag
         window.uiReady = true;
-        console.log('UI ready - no intro');
     }
 
     updateModeButton() {
