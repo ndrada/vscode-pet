@@ -1,7 +1,7 @@
 class PomodoroTimer {
     constructor() {
-        this.workTime = 0.2 * 60; // 25 minutes in seconds
-        this.breakTime = 0.2 * 60; // 5 minutes in seconds
+        this.workTime = 25 * 60; // 25 minutes in seconds
+        this.breakTime = 5 * 60; // 5 minutes in seconds
         this.currentTime = this.workTime;
         this.isRunning = false;
         this.isWorkSession = true;

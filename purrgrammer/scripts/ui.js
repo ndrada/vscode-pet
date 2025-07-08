@@ -18,14 +18,18 @@ class UIController {
     }
     
     setupUI() {
-        // Setup parallax
-        this.setupParallax();
-        
-        // Listen for timer events
-        this.setupTimerListeners();
-        
-        // Notify that UI is ready
-        this.notifyUIReady();
+        //read mode from local storage / default to light
+        const savedMode = localStorage.getItem('purrgrammer-mode') || 'light';
+
+        // correct mode setup everywhere upfront
+        this.currentMode = savedMode;
+        document.getElementById('bg-light').style.display = savedMode === 'light' ? '' : 'none';
+        document.getElementById('bg-dark').style.display = savedMode === 'dark' ? '' : 'none';
+        document.body.classList.toggle('dark-mode', savedMode === 'dark');
+
+        this.setupParallax(savedMode); // in saved mode
+        this.setupTimerListeners(); //listen for timer events
+        this.notifyUIReady(); //notify ui is readyyyy
 
         const modeBtn = document.getElementById('mode-btn');
         if(modeBtn){
@@ -50,7 +54,7 @@ class UIController {
         } else {
             this.parallaxLayers = document.querySelectorAll('#bg-dark .parallax');
             this.parallaxSpeeds = [
-                -0.1, -0.15, -0.2, -0.3, -0.4, -0.6 // 6 layers
+                -0.12, -0.18, -0.23, -0.35, -0.44, -0.6 // 6 layers
             ];
         }        
         // set background images from data attributes
@@ -67,6 +71,8 @@ class UIController {
     parallaxToggleMode(){
         //flip mode
         this.currentMode = this.currentMode === 'light' ? 'dark' : 'light';
+        //store mode in local storage
+        localStorage.setItem('purrgrammer-mode', this.currentMode);
 
         // show/hide parallax layers
         document.getElementById('bg-light').style.display = this.currentMode === 'light' ? '' : 'none';
@@ -107,6 +113,12 @@ class UIController {
     }
     
     startParallax() {
+        // stop any existing animation loop first
+        if (this.parallaxAnimationId) {
+            cancelAnimationFrame(this.parallaxAnimationId);
+            this.parallaxAnimationId = null;
+        }
+        
         const animate = () => {
             if (this.isParallaxActive) {
                 this.parallaxOffset += 0.5;

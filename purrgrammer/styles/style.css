@@ -248,6 +248,13 @@ body.dark-mode #start-pause-btn:hover {
   border: 1px solid #1f52b7;
 }
 
+
+@media (max-height: 500px) {
+  #header h2, #timer-status {
+    display: none;
+  }
+}
+
 @media (max-height: 300px) {
   #timer-container {
     width: 100%;
