@@ -33,6 +33,9 @@ class UIController {
                 this.parallaxToggleMode();
             });
         }
+        
+        // set initial button state
+        this.updateModeButton();
     }
     
     setupParallax(mode = 'light') {
@@ -74,6 +77,9 @@ class UIController {
 
         //add dark mode css
         document.body.classList.toggle('dark-mode', this.currentMode === 'dark');
+        
+        // update the button icon
+        this.updateModeButton();
     }
     
     setupTimerListeners() {
@@ -159,6 +165,13 @@ class UIController {
         // Also set a global flag
         window.uiReady = true;
         console.log('UI ready - no intro');
+    }
+
+    updateModeButton() {
+        const modeBtn = document.getElementById('mode-btn');
+        if (modeBtn) {
+            modeBtn.textContent = this.currentMode === 'light' ? '⏾' : '☀';
+        }
     }
 }
 

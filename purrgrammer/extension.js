@@ -100,9 +100,9 @@ class KittyViewProvider{
         <!-- Main App (no intro) -->
         <div id="main-app">
           <div id="header">
-            <button id="sound-btn" title="Sound Button">🕪</button>
-            <button id="mode-btn" title="Toggle Dark Mode"></button>
             <h2>Purrgrammer</h2>
+            <button id="sound-btn" title="Sound Button">🕪</button>
+            <button id="mode-btn" title="Toggle Dark Mode">⏾</button>
             <button id="reset-btn" title="Reset Timer">↻</button>
           </div>
           

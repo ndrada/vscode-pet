@@ -41,7 +41,7 @@ body {
 }
 
 #header h2 {
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: 1.5em;
     color: violet;
 }
@@ -60,8 +60,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   font-size: 18px;
   transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 200;
 }
 
 #reset-btn:hover, #sound-btn:hover, #mode-btn:hover {
@@ -155,8 +158,6 @@ body {
     font-size: 35px;
     text-align: center;
     color: violet;
-    margin-top: 10px;
-    
 }
 
 /* pet Container Styles - Always at bottom */
@@ -256,10 +257,6 @@ body.dark-mode #start-pause-btn:hover {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-  }
-
-  #sound-btn, #reset-btn {
-    z-index: 200;
   }
 } 
 
