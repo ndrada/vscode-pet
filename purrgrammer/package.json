@@ -3,7 +3,7 @@
   "displayName": "Purrgrammer: Kitty Pomodoro Timer",
   "description": "A little companion to keep you focused and productive while coding.",
   "icon": "media/cat-icon.png",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.101.0"
   },

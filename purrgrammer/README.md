@@ -48,24 +48,24 @@ Under the following terms:
 
 ### Light and Dark Mode
 <p align="center">
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/lightmode.gif" width="350" alt="Light Mode" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/lightmode.gif" width="350" alt="Light Mode" />
   &nbsp; &nbsp; &nbsp; 
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/darkmode.gif" width="350" alt="Dark Mode" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/darkmode.gif" width="350" alt="Dark Mode" />
 </p>
 
 ### Different ways to place your pet
 <p align="center">
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/1put-kitty-here.png" width="300" alt="placement 1" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/1put-kitty-here.png" width="300" alt="placement 1" />
   &nbsp; &nbsp; &nbsp; 
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/2or-put-her-here.png" width="300" alt="placement 2" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/2or-put-her-here.png" width="300" alt="placement 2" />
   &nbsp; &nbsp; &nbsp;
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/3here-works-too.png" width="300" alt="placement 3" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/3here-works-too.png" width="300" alt="placement 3" />
   &nbsp; &nbsp; &nbsp; 
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/4great-spot-for-kitty.png" width="300" alt="placement 4" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/4great-spot-for-kitty.png" width="300" alt="placement 4" />
   &nbsp; &nbsp; &nbsp; 
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/5amazing-kitty-view.png" width="300" alt="placement 5" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/5amazing-kitty-view.png" width="300" alt="placement 5" />
   &nbsp; &nbsp; &nbsp; 
-  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/7very-tiny-timer-no-kitty.png" width="300" alt="placement 7" />
+  <img src="https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/7very-tiny-timer-no-kitty.png" width="300" alt="placement 7" />
 </p>
 
 ---
