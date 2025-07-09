@@ -1,65 +1,64 @@
-# purrgrammer README
+# Purrgrammer: Pomodoro Timer VSCode Extension 🐈
 
-This is the README for your extension "purrgrammer". After writing up a brief description, we recommend including the following sections.
-
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Pet companion to help you stay productive! <br> <br>
+Enjoy city parallax backgrounds, a standard pomodoro 25/5 timer that meows when time is up & dark mode for my night owl friends. 
 
 ---
 
-## Working with Markdown
+### Features
 
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+- 🐱 pixel cat pet walking through the city (she goes to sleep when it's break time)
+- 🎨 city parallax backgrounds (light & dark mode)
+- ⏰ pomodoro timer (standard 25 mins of work time and 5 mins of break)
+- 🎶 meow on time up
+- 🌚 one-click dark mode toggle (will remember your choice for next time)
+- ⚡️ super lightweight & responsive
+- 📍 place it wherever you like in your vscode 
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
+---
 
-## For more information
+### Credits
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+**Art & Sprites:**  
+- Cat sprites by [Maze Bit Boutique](https://mxmaze.itch.io/) on itch.io
+- City background sprites by [Free Game Assets](https://free-game-assets.itch.io/) on itch.io
 
-**Enjoy!**
+**Sound Effects:**  
+- Meow by [Eccentric Sounds](https://www.youtube.com/@eccentricsoundfx)  
+- Ticking by [YTSFX](https://www.youtube.com/@YTSFX)  
+
+---
+
+### License
+
+[Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/)
+
+You are free to:
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material
+
+Under the following terms:
+- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- **NonCommercial** — You may not use the material for commercial purposes.
+
+
+---
+
+## Demo
+
+### Light and Dark Mode
+![Light Mode](https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/lightmode.gif)  
+![Dark Mode](https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/darkmode.gif)
+
+
+### Different ways to use the extension
+![You can place kitty here](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/1put-kitty-here.png)
+![Or put her here](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/2or-put-her-here.png)
+![Here works too](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/3here-works-too.png)  
+![Great spot for kitty](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/4great-spot-for-kitty.png)
+![Amazing kitty view](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/5amazing-kitty-view.png)
+![Too thin for kitty, but wow timer!](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/6too-thin-for-kitty-but-wow-timer.png)
+![Very tiny timer and no kitty](https://github.com/ndrada/vscode-pet/blob/raw/purrgrammer/demo/7very-tiny-timer-no-kitty.png)
+---
+
+> Made with ☕️, 🐾 and lots of cat meows
