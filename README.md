@@ -47,9 +47,29 @@ Under the following terms:
 ## Demo
 
 ### Light and Dark Mode
-![Light Mode](demo/lightmode.gif)  
-![Dark Mode](demo/darkmode.gif)
+<p align="center">
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/lightmode.gif" width="350" alt="Light Mode" />
+  &nbsp; &nbsp; &nbsp; 
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/darkmode.gif" width="350" alt="Dark Mode" />
+</p>
+
+### Different ways to place your pet
+<p align="center">
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/1put-kitty-here.png" width="300" alt="placement 1" />
+  &nbsp; &nbsp; &nbsp; 
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/2or-put-her-here.png" width="300" alt="placement 2" />
+  &nbsp; &nbsp; &nbsp;
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/3here-works-too.png" width="300" alt="placement 3" />
+  &nbsp; &nbsp; &nbsp; 
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/4great-spot-for-kitty.png" width="300" alt="placement 4" />
+  &nbsp; &nbsp; &nbsp; 
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/5amazing-kitty-view.png" width="300" alt="placement 5" />
+  &nbsp; &nbsp; &nbsp; 
+  <img src="https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/7very-tiny-timer-no-kitty.png" width="300" alt="placement 7" />
+</p>
 
 ---
+
+## Have fun! ❤️
 
 > Made with ☕️, 🐾 and lots of cat meows
