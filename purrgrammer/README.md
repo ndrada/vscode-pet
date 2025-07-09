@@ -47,18 +47,18 @@ Under the following terms:
 ## Demo
 
 ### Light and Dark Mode
-![Light Mode](https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/lightmode.gif)  
-![Dark Mode](https://github.com/ndrada/vscode-pet/blob/main/purrgrammer/demo/darkmode.gif)
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/lightmode.gif)  
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/darkmode.gif)
 
 
 ### Different ways to use the extension
-![You can place kitty here](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/1put-kitty-here.png)
-![Or put her here](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/2or-put-her-here.png)
-![Here works too](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/3here-works-too.png)  
-![Great spot for kitty](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/4great-spot-for-kitty.png)
-![Amazing kitty view](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/5amazing-kitty-view.png)
-![Too thin for kitty, but wow timer!](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/6too-thin-for-kitty-but-wow-timer.png)
-![Very tiny timer and no kitty](https://github.com/ndrada/vscode-pet/blob/raw/purrgrammer/demo/7very-tiny-timer-no-kitty.png)
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/1put-kitty-here.png)
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/2or-put-her-here.png)
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/3here-works-too.png)  
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/4great-spot-for-kitty.png)
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/5amazing-kitty-view.png)
+![image](https://github.com/ndrada/vscode-pet/raw/main/purrgrammer/demo/6too-thin-for-kitty-but-wow-timer.png)
+![image](https://github.com/ndrada/vscode-pet/blob/raw/purrgrammer/demo/7very-tiny-timer-no-kitty.png)
 ---
 
 > Made with ☕️, 🐾 and lots of cat meows
