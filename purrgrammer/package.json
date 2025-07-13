@@ -5,7 +5,7 @@
   "icon": "media/cat-icon.png",
   "version": "0.0.4",
   "engines": {
-    "vscode": "^1.100.0"
+    "vscode": "^1.71.0"
   },
   "publisher": "ndrada",
   "repository": {
@@ -33,6 +33,9 @@
     "Other"
   ],
   "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "contributes": {
     "viewsContainers": {
       "activitybar": [
@@ -68,9 +71,10 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
-    "@types/vscode": "^1.102.0",
+    "@types/vscode": "^1.71.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.5.2",
-    "eslint": "^9.25.1"
+    "eslint": "^9.25.1",
+    "vscode": "^1.1.29"
   }
 }
