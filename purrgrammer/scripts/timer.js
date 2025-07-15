@@ -6,8 +6,8 @@ class PomodoroTimer {
         this.isRunning = false;
         this.isWorkSession = true;
         this.intervalId = null;
-        this.autoStartTimeout = null; // Add this for auto-start
-        this.isFirstSession = true; // Track if it's the first work session
+        this.autoStartTimeout = null; // auto-start
+        this.isFirstSession = true; // track if it's the first work session
         
         this.initializeElements();
         this.loadState();
@@ -41,7 +41,7 @@ class PomodoroTimer {
             this.startPauseBtn.textContent = 'Pause';
             this.updateStatus();
             
-            // Dispatch timer started event
+            //timer started event
             document.dispatchEvent(new CustomEvent('timerStarted'));
             
             this.intervalId = setInterval(() => {
@@ -64,7 +64,7 @@ class PomodoroTimer {
                     window.soundManager.playMeow();
                 }
                 
-                // Only save state every 5 seconds to reduce overhead
+                // only save state every 5 seconds to reduce overhead
                 if (this.currentTime % 5 === 0) {
                     this.saveState();
                 }
@@ -82,14 +82,14 @@ class PomodoroTimer {
             clearInterval(this.intervalId);
             this.startPauseBtn.textContent = 'Start';
             
-            // Clear auto-start if paused manually
+            // clear autostart if paused manually
             if (this.autoStartTimeout) {
                 clearInterval(this.autoStartTimeout);
                 this.autoStartTimeout = null;
                 this.startPauseBtn.disabled = false;
             }
             
-            // Dispatch timer paused event
+            // dipatch timer paused event
             document.dispatchEvent(new CustomEvent('timerPaused'));
         }
     }
@@ -97,7 +97,7 @@ class PomodoroTimer {
     reset() {
         this.pause();
         
-        // Clear auto-start countdown if active
+        // clear auto start countdown if active
         if (this.autoStartTimeout) {
             clearInterval(this.autoStartTimeout);
             this.autoStartTimeout = null;
@@ -105,12 +105,12 @@ class PomodoroTimer {
         }
         
         this.isWorkSession = true;
-        this.isFirstSession = true; // Reset to first session
+        this.isFirstSession = true; // reset to first sesh
         this.currentTime = this.workTime;
         this.updateDisplay();
         this.updateStatus();
         
-        // Dispatch reset event
+        // dispath reset event
         document.dispatchEvent(new CustomEvent('timerReset'));
     }
     
@@ -118,36 +118,36 @@ class PomodoroTimer {
         this.pause();
         
         if (this.isWorkSession) {
-            // Work session complete, start break
+            //start break
             this.isWorkSession = false;
             this.currentTime = this.breakTime;
             this.updateStatus('Break time! Take a rest');
             
-            // Dispatch break event
+            // dispath break event
             document.dispatchEvent(new CustomEvent('timerBreak'));
             
-            // Notify the pet (if you want to add special break behavior)
+            // notify pet
             if (window.petController) {
                 window.petController.startBreak();
             }
         } else {
-            // Break complete, back to work
+            //back to work
             this.isWorkSession = true;
             this.currentTime = this.workTime;
             this.updateStatus(
                 'Break over! Ready to focus!');
             
-            // Dispatch work session event
+            //dispath work sesh event
             document.dispatchEvent(new CustomEvent('timerWorkSession'));
             
-            // Notify the pet
+            //notify pet
             if (window.petController) {
                 window.petController.endBreak();
             }
         }
         
         this.updateDisplay();
-        // Auto-start next session after 20 seconds
+        //autostart next session after 20 seconds
         setTimeout(() => {
             this.start();
         }, 20000);
@@ -191,7 +191,7 @@ class PomodoroTimer {
                     if(timeLeft > 0){
                         this.isWorkSession = state.isWorkSession;
                         this.currentTime = timeLeft;
-                        this.isRunning = false; //always start paused on reload;
+                        this.isRunning = false; //always start paused on reload
                     } else {
                         //session expired, reset to new work session
                         this.isWorkSession = true;
@@ -229,7 +229,7 @@ class PomodoroTimer {
     }
 }
 
-// Initialize timer
+// initialize timer
 function initTimer() {
     if (window.uiReady) {
         window.pomodoroTimer = new PomodoroTimer();

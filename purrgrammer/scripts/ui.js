@@ -3,13 +3,13 @@ class UIController {
         this.parallaxLayers = [];
         this.parallaxAnimationId = null;
         this.parallaxOffset = 0;
-        this.isParallaxActive = false; // Start paused
+        this.isParallaxActive = false; // start paused
         
         this.init();
     }
     
     init() {
-        // Wait for DOM to be ready
+        // wait for DOM to be ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => this.setupUI());
         } else {
@@ -102,7 +102,7 @@ class UIController {
             this.pauseParallax();
         });
         
-        // Add listeners for break and work session events
+        // listeners for break and work session events
         document.addEventListener('timerBreak', () => {
             this.pauseParallax(); // Stop parallax when break starts
         });
@@ -147,12 +147,12 @@ class UIController {
         }
     }
     
-    // Method to adjust parallax speed
+    // adjust parallax speed
     setParallaxSpeed(baseSpeed) {
         this.baseSpeed = baseSpeed;
     }
     
-    // Method to toggle parallax for development
+    // toggle parallax for dev
     toggleParallax() {
         if (this.isParallaxActive) {
             this.pauseParallax();
@@ -162,13 +162,13 @@ class UIController {
     }
     
     notifyUIReady() {
-        // Dispatch custom event for other scripts to listen to
+        //custom event for other scripts to listen to
         const event = new CustomEvent('uiReady', {
             detail: { introComplete: true }
         });
         document.dispatchEvent(event);
         
-        // Also set a global flag
+        //global flag
         window.uiReady = true;
     }
 
@@ -180,10 +180,9 @@ class UIController {
     }
 }
 
-// Initialize UI Controller
 window.uiController = new UIController();
 
-// Optional: keyboard shortcuts for development
+//keyboard shortcuts for dev
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !window.uiController.isIntroComplete) {
         window.uiController.skipIntro();
@@ -194,7 +193,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Expose methods globally for easy adjustment
+// expose methods globally for adjustment
 window.setParallaxSpeed = (speed) => {
     window.uiController.setParallaxSpeed(speed);
 };

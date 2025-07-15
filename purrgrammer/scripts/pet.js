@@ -1,4 +1,4 @@
-// Wait for UI to be ready before initializing pet
+// wait for ui to be ready before initializing pet
 function waitForUI() {
     if (window.uiReady) {
         initPet();
@@ -43,7 +43,7 @@ function initPet() {
     let isTimerRunning = false;
     let isBreakTime = false;
     
-    // Listen for timer events
+    // listen for timer events
     document.addEventListener('timerStarted', () => {
         isTimerRunning = true;
         if (!isBreakTime) {
@@ -64,7 +64,7 @@ function initPet() {
         playAnimation('layDown');
         setTimeout(() => {
             playAnimation('sleep');
-        }, 2000); // Wait for layDown animation to complete
+        }, 2000); // wait for layDown animation to complete
     });
     
     document.addEventListener('timerWorkSession', () => {
@@ -77,7 +77,7 @@ function initPet() {
                 } else {
                     playAnimation('idle');
                 }
-            }, 1500); // Wait for getUp animation
+            }, 1500); // wait for getUp animation
         } else if (isTimerRunning) {
             playAnimation('walk');
         } else {
@@ -111,7 +111,7 @@ function initPet() {
     function animate(){
         frameCount++;
         if(frameCount % frameDelay === 0){
-            // Check if we should loop or stop at last frame
+            // check if should loop or stop at last frame
             if(shouldLoop || animFrame < ANIMATIONS[currentAnimation].length - 1) {
                 animFrame = (animFrame + 1) % ANIMATIONS[currentAnimation].length;
             }
@@ -128,10 +128,10 @@ function initPet() {
             animFrame = 0;
             frameCount = 0;
             
-            // Set which animations should loop
+            // set which animations should loop
             shouldLoop = ['idle', 'walk', 'sleep'].includes(name);
             
-            // Different frame delays for different animations
+            // frame delays
             switch(name) {
                 case 'idle':
                     frameDelay = 40; // slow idle breathing
@@ -155,11 +155,11 @@ function initPet() {
     sprite.onload = function(){
         animate();
         
-        // Start with idle animation
+        // start idle
         playAnimation('idle');
     };
 
-    // Expose pet controller for external control
+    //expose pet controller
     window.petController = {
         startBreak: function() {
             isBreakTime = true;
