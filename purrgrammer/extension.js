@@ -79,6 +79,10 @@ class KittyViewProvider{
       vscode.Uri.joinPath(this.extensionUri, 'media', 'sounds', 'ticking.wav')
     );
 
+    const clickUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this.extensionUri, 'media', 'sounds', 'click.wav')
+    );
+
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -127,6 +131,7 @@ class KittyViewProvider{
         <script>
           window.meowUri = "${meowUri}";
           window.tapUri = "${tapUri}";
+          window.clickUri = "${clickUri}";
         </script>
         <script src="${soundManagerUri}"></script>
         <script src="${uiUri}"></script>

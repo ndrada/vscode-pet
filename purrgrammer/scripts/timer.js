@@ -13,8 +13,9 @@ class PomodoroTimer {
         this.loadState();
         this.updateDisplay();
         this.bindEvents();
+        this.clickSound = new Audio(window.clickUri);
     }
-    
+
     initializeElements() {
         this.displayElement = document.getElementById('timer-display');
         this.statusElement = document.getElementById('timer-status');
@@ -36,6 +37,11 @@ class PomodoroTimer {
     }
     
     start() {
+        if (this.clickSound) {
+            this.clickSound.currentTime = 0;
+            this.clickSound.play().catch(() => {});
+        }
+        
         if (!this.isRunning) {
             this.isRunning = true;
             this.startPauseBtn.textContent = 'Pause';
@@ -77,6 +83,11 @@ class PomodoroTimer {
     }
     
     pause() {
+        if (this.clickSound) {
+            this.clickSound.currentTime = 0;
+            this.clickSound.play().catch(() => {});
+        }
+        
         if (this.isRunning) {
             this.isRunning = false;
             clearInterval(this.intervalId);
@@ -147,10 +158,10 @@ class PomodoroTimer {
         }
         
         this.updateDisplay();
-        //autostart next session after 20 seconds
-        setTimeout(() => {
-            this.start();
-        }, 20000);
+        //autostart next sesh? Temporarily removed feature
+        // setTimeout(() => {
+        //     this.start();
+        // }, 20000);
     }
     
     updateDisplay() {
