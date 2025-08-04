@@ -1,4 +1,4 @@
-# Purrgrammer: Pomodoro Timer VSCode Extension 🐈
+# Purrgrammer: Pomodoro Timer 🐈
 
 Pet companion to help you stay productive! <br> <br>
 Enjoy city parallax backgrounds, a standard pomodoro 25/5 timer that meows when time is up & dark mode for my night owl friends. 
@@ -14,6 +14,12 @@ Enjoy city parallax backgrounds, a standard pomodoro 25/5 timer that meows when 
 - 🌚 one-click dark mode toggle (will remember your choice for next time)
 - ⚡️ super lightweight & responsive
 - 📍 place it wherever you like in your vscode 
+
+### Latest Update -v0.0.5
+- added click sound for start/pause/reset
+- removed auto start for all sessions to give users more control
+
+> Update inspired by user feedback
 
 ---
 
