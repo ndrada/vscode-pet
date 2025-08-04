@@ -13,7 +13,6 @@ class PomodoroTimer {
         this.loadState();
         this.updateDisplay();
         this.bindEvents();
-        this.clickSound = new Audio(window.clickUri);
     }
 
     initializeElements() {
@@ -37,9 +36,8 @@ class PomodoroTimer {
     }
     
     start() {
-        if (this.clickSound) {
-            this.clickSound.currentTime = 0;
-            this.clickSound.play().catch(() => {});
+        if (window.soundManager){
+            window.soundManager.playClick();
         }
         
         if (!this.isRunning) {
@@ -83,9 +81,8 @@ class PomodoroTimer {
     }
     
     pause() {
-        if (this.clickSound) {
-            this.clickSound.currentTime = 0;
-            this.clickSound.play().catch(() => {});
+        if (window.soundManager){
+            window.soundManager.playClick();
         }
         
         if (this.isRunning) {

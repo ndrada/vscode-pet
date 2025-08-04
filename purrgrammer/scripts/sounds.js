@@ -20,6 +20,7 @@ class SoundManager {
         // Preload sounds
         this.tap = new Audio(window.tapUri);
         this.meow = new Audio(window.meowUri);
+        this.click = new Audio(window.clickUri);
 
         // Prime audio on any button click
         const prime = () => {
@@ -94,6 +95,12 @@ class SoundManager {
         if (!this.soundEnabled) return;
         this.meow.currentTime = 0;
         this.meow.play().catch(() => {}); // handle potential errors
+    }
+
+    playClick() {
+        if (!this.soundEnabled || !this.click) return;
+        this.click.currentTime = 0;
+        this.click.play().catch(() => {});
     }
 
     toggleSound() {
