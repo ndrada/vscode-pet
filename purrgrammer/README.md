@@ -15,11 +15,13 @@ Enjoy city parallax backgrounds, a standard pomodoro 25/5 timer that meows when 
 - ⚡️ super lightweight & responsive
 - 📍 place it wherever you like in your vscode 
 
-### Latest Update -v0.0.5
+## Latest Update -v0.0.6
+- fixed webview on window start bug 
+- added extension controls (CTRL+SHIFT+P -> Purrgrammer: Start Kitty Timer)
+
+### Update -v0.0.5
 - added click sound for start/pause/reset
 - removed auto start for all sessions to give users more control
-
-> Update inspired by user feedback
 
 ---
 

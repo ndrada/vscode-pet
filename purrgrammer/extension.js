@@ -1,13 +1,18 @@
 const vscode = require('vscode'); //import vscode api
 
-//activate func runs when extension activates (when vscode loads it)
-function activate(context) {
-  context.subscriptions.push( //everything added here will be cleaned up when vscode disables the extension
+function activate(context) { 
+  context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
-      'purrgrammerPanel', //matches id used in package.json "views"
-      new KittyViewProvider(context.extensionUri) //creates a new panel view provider with the class below
-    )
-  ); 
+      'purrgrammerPanel',
+      new KittyViewProvider(context.extensionUri)
+    ),
+
+    vscode.commands.registerCommand('purrgrammer.showTimer', () => {
+      vscode.commands.executeCommand('purrgrammerPanel.focus');
+    })
+  );
+  
+  vscode.commands.executeCommand('purrgrammerPanel.focus');
 }
 
 class KittyViewProvider{
