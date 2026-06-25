@@ -4,6 +4,7 @@ class UIController {
         this.parallaxAnimationId = null;
         this.parallaxOffset = 0;
         this.isParallaxActive = false; // start paused
+        this.baseSpeed = 1;
         
         this.init();
     }
@@ -120,7 +121,7 @@ class UIController {
                 this.parallaxOffset += 0.5;
                 
                 this.parallaxLayers.forEach((layer, index) => {
-                    const speed = this.parallaxSpeeds[index];
+                    const speed = this.parallaxSpeeds[index] * this.baseSpeed;
                     const offset = this.parallaxOffset * speed;
                     layer.style.backgroundPositionX = `${offset}px`;
                 });
@@ -184,9 +185,6 @@ window.uiController = new UIController();
 
 //keyboard shortcuts for dev
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !window.uiController.isIntroComplete) {
-        window.uiController.skipIntro();
-    }
     // Toggle parallax with 'P' key
     if (e.key === 'p' || e.key === 'P') {
         window.uiController.toggleParallax();

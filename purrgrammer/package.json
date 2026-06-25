@@ -3,7 +3,7 @@
   "displayName": "Purrgrammer: Kitty Pomodoro Timer",
   "description": "A little companion to keep you focused and productive while coding.",
   "icon": "media/cat-icon.png",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "vscode": "^1.71.0"
   },
@@ -35,7 +35,7 @@
   "main": "./extension.js",
   "activationEvents": [
     "onStartupFinished",
-    "onCommand::purrgrammer.showTimer"
+    "onCommand:purrgrammer.showTimer"
   ],
   "contributes": {
     "viewsContainers": {

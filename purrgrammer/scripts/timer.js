@@ -7,7 +7,6 @@ class PomodoroTimer {
         this.isWorkSession = true;
         this.intervalId = null;
         this.autoStartTimeout = null; // auto-start
-        this.isFirstSession = true; // track if it's the first work session
         
         this.initializeElements();
         this.loadState();
@@ -113,13 +112,14 @@ class PomodoroTimer {
         }
         
         this.isWorkSession = true;
-        this.isFirstSession = true; // reset to first sesh
         this.currentTime = this.workTime;
         this.updateDisplay();
         this.updateStatus();
         
         // dispath reset event
         document.dispatchEvent(new CustomEvent('timerReset'));
+
+        this.saveState();
     }
     
     sessionComplete() {
@@ -133,11 +133,6 @@ class PomodoroTimer {
             
             // dispath break event
             document.dispatchEvent(new CustomEvent('timerBreak'));
-            
-            // notify pet
-            if (window.petController) {
-                window.petController.startBreak();
-            }
         } else {
             //back to work
             this.isWorkSession = true;
@@ -147,11 +142,6 @@ class PomodoroTimer {
             
             //dispath work sesh event
             document.dispatchEvent(new CustomEvent('timerWorkSession'));
-            
-            //notify pet
-            if (window.petController) {
-                window.petController.endBreak();
-            }
         }
         
         this.updateDisplay();
@@ -187,21 +177,21 @@ class PomodoroTimer {
             if (saved) {
                 const state = JSON.parse(saved);
                 const timePassed = Math.floor((Date.now() - state.lastSaved) / 1000);
-                
-                //only restore state if it's valid and the timer wasn't expired
+
                 if(
                     typeof state.isWorkSession === 'boolean' &&
                     typeof state.currentTime === 'number' &&
                     typeof state.isRunning === 'boolean'
                 ){
-                    //only use saved state if there is still time left
-                    const timeLeft = Math.max(0, state.currentTime - timePassed);
-                    if(timeLeft > 0){
+                    const timeLeft = state.isRunning
+                        ? Math.max(0, state.currentTime - timePassed)
+                        : state.currentTime;
+
+                    if (timeLeft > 0) {
                         this.isWorkSession = state.isWorkSession;
                         this.currentTime = timeLeft;
-                        this.isRunning = false; //always start paused on reload
+                        this.isRunning = false;
                     } else {
-                        //session expired, reset to new work session
                         this.isWorkSession = true;
                         this.currentTime = this.workTime;
                         this.isRunning = false;

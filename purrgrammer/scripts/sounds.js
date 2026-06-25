@@ -16,6 +16,11 @@ class SoundManager {
 
     init() {
         this.soundBtn = document.getElementById('sound-btn');
+
+        const savedSound = localStorage.getItem('purrgrammer-sound-enabled');
+        if (savedSound !== null) {
+            this.soundEnabled = savedSound === 'true';
+        }
         
         // Preload sounds
         this.tap = new Audio(window.tapUri);
@@ -106,6 +111,7 @@ class SoundManager {
     toggleSound() {
         this.soundEnabled = !this.soundEnabled;
         this.updateIcon();
+        localStorage.setItem('purrgrammer-sound-enabled', String(this.soundEnabled));
         if(!this.soundEnabled) this.stopTicking();
     }
 

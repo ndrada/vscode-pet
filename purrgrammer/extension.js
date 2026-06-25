@@ -34,6 +34,8 @@ class KittyViewProvider{
 
   //actual html panel that will be displayed
   getHtml(webview){
+    const nonce = getNonce();
+
     //special uri to safely access cat sprites
     const spriteUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, 'media', 'cat.png')
@@ -94,10 +96,9 @@ class KittyViewProvider{
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https:; media-src ${webview.cspSource}; script-src 'nonce-${nonce}'; style-src ${webview.cspSource} 'unsafe-inline' https://fonts.googleapis.com; font-src ${webview.cspSource} https://fonts.gstatic.com; connect-src 'none';">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap">
         <link rel="stylesheet" href="${styleUri}">
-        <style>
-          @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
-        </style>
         <title>Purrgrammer</title>
       </head>
       <body>
@@ -130,22 +131,31 @@ class KittyViewProvider{
         </div>
 
 
-        <script>
+        <script nonce="${nonce}">
           window.spriteUri = "${spriteUri}";
         </script>
-        <script>
+        <script nonce="${nonce}">
           window.meowUri = "${meowUri}";
           window.tapUri = "${tapUri}";
           window.clickUri = "${clickUri}";
         </script>
-        <script src="${soundManagerUri}"></script>
-        <script src="${uiUri}"></script>
-        <script src="${scriptUri}"></script>
-        <script src="${timerUri}"></script>
+        <script nonce="${nonce}" src="${soundManagerUri}"></script>
+        <script nonce="${nonce}" src="${uiUri}"></script>
+        <script nonce="${nonce}" src="${scriptUri}"></script>
+        <script nonce="${nonce}" src="${timerUri}"></script>
       </body>
       </html>
     `;
   }
+}
+
+function getNonce() {
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let text = '';
+  for (let i = 0; i < 32; i += 1) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }
 
 function deactivate() {}

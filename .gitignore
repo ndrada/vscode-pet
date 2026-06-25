@@ -1,2 +1,6 @@
 purrgrammer/node_modules
 purrgrammer/.vscode-test
+
+# Claude Code artifacts
+CLAUDE.md
+.claude/
